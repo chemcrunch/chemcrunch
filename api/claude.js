@@ -3,48 +3,45 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: "API key not configured" });
   }
 
   try {
-    // Parse body if it's a string
     let body = req.body;
-    if (typeof body === "string") {
-      body = JSON.parse(body);
-    }
+    if (typeof body === "string") body = JSON.parse(body);
 
-    // Ensure required fields are present
-    const payload = {
-      model: body.model || "claude-sonnet-4-6",
-      max_tokens: body.max_tokens || 1000,
-      messages: body.messages,
-    };
+    // Build prompt from system + messages
+    const systemText = body.system ? `${body.system}\n\n` : "";
+    const userText = body.messages?.[0]?.content || "";
+    const fullPrompt = systemText + userText;
 
-    // Only add system if provided
-    if (body.system) {
-      payload.system = body.system;
-    }
-
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify(payload),
-    });
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: fullPrompt }] }],
+          generationConfig: { maxOutputTokens: 1000, temperature: 0.8 }
+        })
+      }
+    );
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Anthropic error:", JSON.stringify(data));
+      console.error("Gemini error:", JSON.stringify(data));
       return res.status(response.status).json(data);
     }
 
-    return res.status(200).json(data);
+    // Convert Gemini response to Anthropic-style format so app works without changes
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    return res.status(200).json({
+      content: [{ type: "text", text }]
+    });
+
   } catch (error) {
     console.error("Proxy error:", error);
     return res.status(500).json({ error: "Internal server error", details: error.message });
