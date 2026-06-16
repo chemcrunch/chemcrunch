@@ -1,0 +1,17 @@
+{
+  "name": "chemfeed",
+  "version": "1.0.0",
+  "description": "AP Chemistry AI Study App — Unit 1",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

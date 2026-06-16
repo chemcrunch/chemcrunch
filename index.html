@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#534AB7" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="ChemFeed" />
+  <meta name="description" content="AP Chemistry Unit 1 AI Study App" />
+  <title>ChemFeed — AP Chemistry</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.x/dist/tabler-icons.min.css" />
+  <style>
+    :root {
+      --purple: #534AB7; --purple-light: #EEEDFE; --purple-mid: #AFA9EC; --purple-dark: #3C3489;
+      --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #085041;
+      --amber: #BA7517; --amber-light: #FAEEDA; --amber-dark: #633806;
+      --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #712B13;
+      --pink: #D4537E; --pink-light: #FBEAF0; --pink-dark: #72243E;
+      --bg: #ffffff; --bg2: #f5f5f7; --bg3: #ebebed;
+      --text1: #1a1a1a; --text2: #555; --text3: #999;
+      --border: #e5e5e5; --border2: #d0d0d0;
+      --radius: 10px; --radius-lg: 14px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f10; --bg2: #1c1c1e; --bg3: #2c2c2e;
+        --text1: #f0f0f0; --text2: #aaa; --text3: #666;
+        --border: #2c2c2e; --border2: #3a3a3c;
+        --purple-light: #1e1a3d; --teal-light: #0a2720; --amber-light: #2a1e08;
+        --coral-light: #2a1208; --pink-light: #2a0e1c;
+        --purple-dark: #AFA9EC; --teal-dark: #6DD9B0; --amber-dark: #F5C56A;
+        --coral-dark: #F5A07A; --pink-dark: #F0A0BE;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: var(--bg); color: var(--text1); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    #app { max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); position: relative; }
+
+    /* NAV */
+    .topnav { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 10px; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 20; }
+    .topnav-logo { font-size: 19px; font-weight: 600; color: var(--text1); display: flex; align-items: center; gap: 7px; letter-spacing: -0.3px; }
+    .streak-chip { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--amber); background: var(--amber-light); padding: 5px 11px; border-radius: 999px; }
+
+    /* BOTTOM TABS */
+    .bottom-tabs { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: var(--bg); border-top: 1px solid var(--border); display: flex; z-index: 20; padding-bottom: env(safe-area-inset-bottom); }
+    .tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--text3); cursor: pointer; padding: 8px 0 5px; transition: color 0.15s; }
+    .tab i { font-size: 20px; }
+    .tab.active { color: var(--purple); }
+
+    /* SCREENS */
+    .screen { display: none; flex: 1; overflow-y: auto; padding-bottom: 70px; }
+    .screen.active { display: block; }
+
+    /* UNIT HEADER */
+    .unit-header { padding: 13px 16px 11px; border-bottom: 1px solid var(--border); }
+    .unit-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 3px; }
+    .unit-title { font-size: 15px; font-weight: 600; color: var(--text1); margin-bottom: 10px; letter-spacing: -0.2px; }
+    .prog-row { display: flex; align-items: center; gap: 10px; }
+    .prog-track { flex: 1; height: 4px; background: var(--bg3); border-radius: 999px; }
+    .prog-fill { height: 4px; background: var(--purple); border-radius: 999px; transition: width 0.4s; }
+    .prog-pct { font-size: 11px; color: var(--text3); min-width: 30px; text-align: right; }
+
+    /* PILLS */
+    .pills-wrap { display: flex; gap: 7px; overflow-x: auto; padding: 10px 14px; scrollbar-width: none; border-bottom: 1px solid var(--border); }
+    .pills-wrap::-webkit-scrollbar { display: none; }
+    .pill { flex-shrink: 0; font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 999px; cursor: pointer; border: 1px solid var(--border2); color: var(--text2); background: var(--bg); transition: all 0.15s; }
+    .pill.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+    /* FEED */
+    .feed { padding: 11px 11px 0; display: flex; flex-direction: column; gap: 11px; }
+    .gen-wrap { padding: 10px 11px 0; display: flex; gap: 7px; }
+    .gen-btn { flex: 1; padding: 9px 4px; border-radius: 11px; border: 1.5px dashed var(--border2); background: none; font-size: 11px; color: var(--text2); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.15s; font-weight: 500; }
+    .gen-btn:active { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
+    .gen-btn i { font-size: 15px; }
+    .ai-loader { display: none; margin: 10px 11px 0; padding: 14px; border-radius: 12px; background: var(--bg2); text-align: center; }
+    .ai-loader.on { display: block; }
+    .spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 7px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ai-loader p { font-size: 12px; color: var(--text2); }
+
+    /* CARDS */
+    .card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+    .card-tag-row { display: flex; align-items: center; gap: 7px; padding: 11px 13px 5px; }
+    .tag { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: var(--radius); letter-spacing: 0.2px; }
+    .tag-lesson { background: var(--purple-light); color: var(--purple-dark); }
+    .tag-analogy { background: var(--amber-light); color: var(--amber-dark); }
+    .tag-practice { background: var(--teal-light); color: var(--teal-dark); }
+    .tag-challenge { background: var(--coral-light); color: var(--coral-dark); }
+    .tag-frq { background: var(--pink-light); color: var(--pink-dark); }
+    .topic-label { font-size: 10px; color: var(--text3); margin-left: auto; }
+    .card-body { padding: 2px 13px 9px; cursor: pointer; }
+    .card-title { font-size: 15px; font-weight: 600; color: var(--text1); line-height: 1.35; margin-bottom: 4px; letter-spacing: -0.2px; }
+    .card-preview { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .card-highlight { margin: 7px 13px 9px; padding: 12px; background: var(--bg2); border-radius: var(--radius); font-size: 13px; color: var(--text1); line-height: 1.65; border: 1px solid var(--border); }
+    .card-highlight .eq { font-family: 'Menlo', 'Monaco', monospace; font-size: 12.5px; text-align: center; padding: 2px 0; white-space: pre-line; }
+    .card-highlight .step { display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start; }
+    .card-highlight .step:last-child { margin-bottom: 0; }
+    .card-highlight .step-num { font-size: 10px; font-weight: 700; color: var(--purple); background: var(--purple-light); width: 19px; height: 19px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+    /* QUIZ IN FEED */
+    .quiz-wrap { padding: 0 13px 11px; }
+    .quiz-q { font-size: 13px; font-weight: 600; color: var(--text1); margin-bottom: 9px; line-height: 1.5; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 6px; }
+    .quiz-opt { font-size: 12px; padding: 9px 12px; border: 1px solid var(--border2); border-radius: 9px; cursor: pointer; text-align: left; background: var(--bg); color: var(--text1); line-height: 1.4; transition: all 0.12s; }
+    .quiz-opt:active:not(.disabled) { background: var(--bg2); }
+    .quiz-opt.correct { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); font-weight: 600; }
+    .quiz-opt.wrong { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+    .quiz-opt.disabled { pointer-events: none; }
+    .quiz-feedback { margin-top: 9px; font-size: 12px; line-height: 1.6; padding: 10px; border-radius: 9px; display: none; }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.correct-fb { background: var(--teal-light); color: var(--teal-dark); }
+    .quiz-feedback.wrong-fb { background: #FCEBEB; color: #A32D2D; }
+    .expand-body { padding: 0 13px 11px; display: none; border-top: 1px solid var(--border); }
+    .expand-body.open { display: block; }
+    .expand-body p { font-size: 13px; color: var(--text2); line-height: 1.7; margin-top: 10px; }
+    .card-footer { display: flex; align-items: center; gap: 10px; padding: 8px 13px; border-top: 1px solid var(--border); }
+    .foot-btn { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text2); background: none; border: none; cursor: pointer; padding: 0; }
+    .foot-btn i { font-size: 15px; }
+    .foot-btn.liked { color: var(--pink); }
+    .foot-btn.saved { color: var(--purple); }
+    .ask-btn-sm { margin-left: auto; font-size: 11px; padding: 4px 10px; border-radius: var(--radius); border: 1px solid var(--purple); color: var(--purple); background: none; cursor: pointer; font-weight: 500; }
+
+    /* QUESTION BANK */
+    .qb-header { padding: 14px 16px 12px; border-bottom: 1px solid var(--border); }
+    .qb-title { font-size: 17px; font-weight: 700; color: var(--text1); margin-bottom: 3px; letter-spacing: -0.3px; }
+    .qb-sub { font-size: 12px; color: var(--text2); }
+    .qb-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    .stat-card { background: var(--bg2); border-radius: 10px; padding: 11px; text-align: center; border: 1px solid var(--border); }
+    .stat-num { font-size: 21px; font-weight: 700; color: var(--text1); letter-spacing: -0.5px; }
+    .stat-label { font-size: 10px; color: var(--text3); margin-top: 2px; font-weight: 500; }
+    .qb-controls { padding: 11px 14px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; flex-wrap: wrap; }
+    .qb-select { font-size: 12px; padding: 7px 10px; border: 1px solid var(--border2); border-radius: 9px; background: var(--bg); color: var(--text1); cursor: pointer; flex: 1; min-width: 120px; }
+    .qb-start { font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 9px; background: var(--purple); color: #fff; border: none; cursor: pointer; white-space: nowrap; width: 100%; margin-top: 2px; letter-spacing: 0.1px; }
+    .qb-info { padding: 14px 16px; font-size: 12px; color: var(--text2); line-height: 1.7; border-bottom: 1px solid var(--border); }
+    .qb-prev-list { padding: 12px 14px; }
+    .session-label { font-size: 10px; color: var(--text3); margin-bottom: 9px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    .session-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 11px; background: var(--bg2); border-radius: 9px; margin-bottom: 7px; border: 1px solid var(--border); }
+    .session-item-name { font-size: 12px; font-weight: 600; color: var(--text1); }
+    .session-item-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+    .session-pct { font-size: 13px; font-weight: 700; }
+
+    /* ACTIVE SESSION */
+    .qb-session { padding: 14px; }
+    .qb-session-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
+    .qb-session-title { font-size: 13px; font-weight: 600; color: var(--text1); }
+    .qb-q-counter { font-size: 11px; color: var(--text3); font-weight: 500; }
+    .qb-progress { height: 3px; background: var(--bg3); border-radius: 999px; margin-bottom: 16px; }
+    .qb-prog-fill { height: 3px; background: var(--purple); border-radius: 999px; transition: width 0.3s; }
+    .qb-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow); }
+    .qb-diff-badge { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: var(--radius); margin-bottom: 11px; display: inline-block; letter-spacing: 0.2px; }
+    .diff-easy { background: var(--teal-light); color: var(--teal-dark); }
+    .diff-medium { background: var(--amber-light); color: var(--amber-dark); }
+    .diff-hard { background: var(--coral-light); color: var(--coral-dark); }
+    .qb-question { font-size: 14px; font-weight: 600; color: var(--text1); line-height: 1.55; margin-bottom: 14px; letter-spacing: -0.1px; }
+    .qb-opts { display: flex; flex-direction: column; gap: 7px; }
+    .qb-opt { font-size: 13px; padding: 11px 13px; border: 1px solid var(--border2); border-radius: 10px; cursor: pointer; text-align: left; background: var(--bg); color: var(--text1); line-height: 1.4; transition: all 0.12s; }
+    .qb-opt:active:not(.disabled) { background: var(--bg2); }
+    .qb-opt.correct { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); font-weight: 600; }
+    .qb-opt.wrong { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+    .qb-opt.disabled { pointer-events: none; }
+    .qb-feedback { margin-top: 13px; font-size: 12px; line-height: 1.65; padding: 12px; border-radius: 10px; display: none; }
+    .qb-feedback.show { display: block; }
+    .qb-feedback.correct-fb { background: var(--teal-light); color: var(--teal-dark); }
+    .qb-feedback.wrong-fb { background: #FCEBEB; color: #A32D2D; }
+    .qb-next { width: 100%; margin-top: 13px; font-size: 13px; font-weight: 700; padding: 12px; border-radius: 10px; background: var(--purple); color: #fff; border: none; cursor: pointer; display: none; letter-spacing: 0.1px; }
+    .qb-next.show { display: block; }
+    .qb-gen-spinner { display: none; text-align: center; padding: 24px; }
+    .qb-gen-spinner.on { display: block; }
+    .qb-gen-note { font-size: 11px; color: var(--text3); text-align: center; padding: 8px 0 0; }
+
+    /* RESULTS */
+    .qb-results { padding: 24px 16px; text-align: center; }
+    .results-emoji { font-size: 52px; margin-bottom: 12px; }
+    .results-score { font-size: 30px; font-weight: 700; color: var(--text1); margin-bottom: 4px; letter-spacing: -1px; }
+    .results-sub { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; text-align: center; }
+    .results-card { background: var(--bg2); border-radius: 11px; padding: 13px; border: 1px solid var(--border); }
+    .results-card-num { font-size: 22px; font-weight: 700; color: var(--text1); letter-spacing: -0.5px; }
+    .results-card-label { font-size: 11px; color: var(--text3); margin-top: 2px; font-weight: 500; }
+    .results-actions { display: flex; flex-direction: column; gap: 9px; }
+    .btn-primary { padding: 13px; border-radius: 11px; background: var(--purple); color: #fff; border: none; cursor: pointer; font-size: 14px; font-weight: 700; width: 100%; letter-spacing: 0.1px; }
+    .btn-secondary { padding: 12px; border-radius: 11px; background: none; color: var(--purple); border: 1.5px solid var(--purple); cursor: pointer; font-size: 13px; width: 100%; font-weight: 600; }
+
+    /* SAVED */
+    .saved-header { padding: 14px 16px 12px; border-bottom: 1px solid var(--border); }
+    .saved-title { font-size: 17px; font-weight: 700; color: var(--text1); letter-spacing: -0.3px; }
+    .saved-feed { padding: 11px; display: flex; flex-direction: column; gap: 10px; }
+    .empty-state { padding: 48px 20px; text-align: center; color: var(--text3); font-size: 13px; line-height: 1.6; }
+    .empty-state i { font-size: 36px; display: block; margin-bottom: 11px; opacity: 0.35; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="topnav">
+    <div class="topnav-logo"><span>⚗️</span> ChemFeed</div>
+    <div class="streak-chip"><i class="ti ti-flame"></i> <span id="streak-count">7</span> day streak</div>
+  </div>
+
+  <!-- ── FEED SCREEN ── -->
+  <div class="screen active" id="screen-feed">
+    <div class="unit-header">
+      <div class="unit-label">Now studying</div>
+      <div class="unit-title">Unit 1: Atomic Structure &amp; Properties</div>
+      <div class="prog-row">
+        <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+        <div class="prog-pct" id="prog-pct">0%</div>
+      </div>
+    </div>
+    <div class="pills-wrap" id="feed-pills">
+      <div class="pill active" data-f="all">All</div>
+      <div class="pill" data-f="lesson">Lessons</div>
+      <div class="pill" data-f="analogy">Analogies</div>
+      <div class="pill" data-f="practice">Practice</div>
+      <div class="pill" data-f="challenge">Challenge</div>
+      <div class="pill" data-f="frq">FRQ</div>
+    </div>
+    <div class="feed" id="feed"></div>
+    <div class="ai-loader" id="feed-loader"><div class="spinner"></div><p id="feed-loader-msg">Generating…</p></div>
+    <div class="gen-wrap">
+      <button class="gen-btn" onclick="feedGen('lesson')"><i class="ti ti-book"></i> Lesson</button>
+      <button class="gen-btn" onclick="feedGen('analogy')"><i class="ti ti-bulb"></i> Analogy</button>
+      <button class="gen-btn" onclick="feedGen('practice')"><i class="ti ti-flask"></i> Practice</button>
+      <button class="gen-btn" onclick="feedGen('challenge')"><i class="ti ti-brain"></i> Challenge</button>
+    </div>
+  </div>
+
+  <!-- ── QUESTION BANK SCREEN ── -->
+  <div class="screen" id="screen-qbank">
+    <div id="qb-home">
+      <div class="qb-header">
+        <div class="qb-title">Question Bank</div>
+        <div class="qb-sub">Unlimited AI-generated questions — Unit 1</div>
+      </div>
+      <div class="qb-stats">
+        <div class="stat-card"><div class="stat-num" id="stat-answered">0</div><div class="stat-label">Answered</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-correct">0</div><div class="stat-label">Correct</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-pct">—</div><div class="stat-label">Accuracy</div></div>
+      </div>
+      <div class="qb-controls">
+        <select class="qb-select" id="qb-topic">
+          <option value="all">All Topics</option>
+          <option value="1.1">1.1 · Moles &amp; Molar Mass</option>
+          <option value="1.2">1.2 · Mass Spectroscopy</option>
+          <option value="1.3">1.3 · Substances &amp; Mixtures</option>
+          <option value="1.5">1.5 · Electron Configuration</option>
+          <option value="1.6">1.6 · PES</option>
+          <option value="1.7">1.7 · Periodic Trends</option>
+          <option value="1.8">1.8 · Valence Electrons</option>
+        </select>
+        <select class="qb-select" id="qb-diff">
+          <option value="all">All Difficulties</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard (AP Exam)</option>
+        </select>
+        <select class="qb-select" id="qb-count">
+          <option value="5">5 questions</option>
+          <option value="10" selected>10 questions</option>
+          <option value="20">20 questions</option>
+          <option value="0">Endless mode ∞</option>
+        </select>
+        <button class="qb-start" onclick="startQBank()">▶ Start Session</button>
+      </div>
+      <div class="qb-info">
+        Every question is generated fresh by Claude — no two sessions are exactly alike. Questions are aligned to College Board AP Chemistry Unit 1, covering multi-step calculations, conceptual reasoning, PES interpretation, and lab scenarios.
+      </div>
+      <div class="qb-prev-list">
+        <div class="session-label">Recent sessions</div>
+        <div id="session-history"></div>
+      </div>
+    </div>
+    <div id="qb-active" style="display:none">
+      <div class="qb-session">
+        <div class="qb-session-header">
+          <div class="qb-session-title" id="qb-session-label">Unit 1 · All Topics</div>
+          <div class="qb-q-counter" id="qb-counter">Q 1 / 10</div>
+        </div>
+        <div class="qb-progress"><div class="qb-prog-fill" id="qb-prog-fill" style="width:0%"></div></div>
+        <div class="qb-gen-spinner" id="qb-spinner"><div class="spinner" style="margin:0 auto 9px"></div><p style="font-size:12px;color:var(--text2)">Generating question…</p></div>
+        <div id="qb-q-wrap"></div>
+        <div class="qb-gen-note" id="qb-gen-note"></div>
+      </div>
+    </div>
+    <div id="qb-results" style="display:none">
+      <div class="qb-results">
+        <div class="results-emoji" id="res-emoji">🎉</div>
+        <div class="results-score" id="res-score">8 / 10</div>
+        <div class="results-sub" id="res-sub">Great work!</div>
+        <div class="results-grid">
+          <div class="results-card"><div class="results-card-num" id="res-correct">8</div><div class="results-card-label">Correct</div></div>
+          <div class="results-card"><div class="results-card-num" id="res-wrong">2</div><div class="results-card-label">Incorrect</div></div>
+          <div class="results-card"><div class="results-card-num" id="res-pct">80%</div><div class="results-card-label">Accuracy</div></div>
+          <div class="results-card"><div class="results-card-num" id="res-topic">—</div><div class="results-card-label">Weakest topic</div></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn-primary" onclick="startQBank()">New session ↺</button>
+          <button class="btn-secondary" onclick="showQBHome()">← Back to bank</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SAVED SCREEN ── -->
+  <div class="screen" id="screen-saved">
+    <div class="saved-header"><div class="saved-title">Saved cards</div></div>
+    <div class="saved-feed" id="saved-feed"></div>
+  </div>
+
+  <!-- BOTTOM TABS -->
+  <div class="bottom-tabs">
+    <div class="tab active" data-screen="feed" onclick="switchTab('feed')"><i class="ti ti-home"></i>Feed</div>
+    <div class="tab" data-screen="qbank" onclick="switchTab('qbank')"><i class="ti ti-school"></i>Question Bank</div>
+    <div class="tab" data-screen="saved" onclick="switchTab('saved')"><i class="ti ti-bookmark"></i>Saved</div>
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────
+const API_URL = "/api/claude"; // Calls our secure Vercel proxy
+
+// ─── TOPIC MAP ────────────────────────────────────────
+const TOPICS = {
+  "1.1":"Moles & Molar Mass","1.2":"Mass Spectroscopy",
+  "1.3":"Substances & Mixtures","1.5":"Electron Configuration",
+  "1.6":"PES","1.7":"Periodic Trends","1.8":"Valence Electrons"
+};
+
+// ─── STATE ────────────────────────────────────────────
+let feedFilter = "all";
+let feedLiked = new Set();
+let feedSaved = new Set();
+let feedAnswered = new Map();
+let feedCorrect = new Set();
+let qbTotalAnswered = 0;
+let qbTotalCorrect = 0;
+let qbSession = {};
+let sessionHistory = [];
+
+// ─── SEED CARDS ───────────────────────────────────────
+const SEED_CARDS = [
+  {id:1,type:"lesson",topic:"1.1",title:"Why we can't count atoms one by one",preview:"Atoms are unimaginably tiny — so chemists invented a trick to count billions at once.",highlight:{type:"steps",steps:["Weigh a single piece to know its mass","Weigh the entire pile","Divide total ÷ single mass → instant count"]},expand:"This is the mole. One mole = 6.022 × 10²³ particles — Avogadro's number. The perfect bridge between atomic mass (amu) and human-scale mass (grams). 6.022 × 10²³ carbon-12 atoms weigh exactly 12.000 g.",askPrompt:"Explain Avogadro's number and why 6.022×10²³ is special"},
+  {id:2,type:"analogy",topic:"1.1",title:"The bank teller & the penny jar",preview:"You don't count 10,000 pennies one by one — you weigh them. Chemistry does the same.",highlight:{type:"text",text:"Penny = 2.5 g. Jar reads 2,500 g.\n2,500 ÷ 2.5 = 1,000 pennies — no counting.\nThe mole works exactly this way with atoms."},expand:"When a chemist needs 2 mol of iron: 2 × 55.85 g/mol = 111.7 g. Just weigh it. The scale does the counting.",askPrompt:"Give me a worked example converting between moles and atoms"},
+  {id:3,type:"practice",topic:"1.1",title:"Practice: Moles ↔ particles",preview:"A scientist has 1.204 × 10²⁴ atoms of iron. How many moles?",quiz:{q:"A scientist has 1.204 × 10²⁴ atoms of pure iron. How many moles?",opts:["0.500 mol","1.00 mol","2.00 mol","6.02 mol"],ans:2,explain:"Divide by Avogadro's number: (1.204 × 10²⁴) ÷ (6.022 × 10²³) = 2.00 mol."},askPrompt:"Walk me through more mole conversion problems"},
+  {id:4,type:"lesson",topic:"1.1",title:"Molar mass: same count, different weight",preview:"1 mol of H weighs 1 g. 1 mol of U weighs 238 g. Same number of atoms, wildly different mass.",highlight:{type:"steps",steps:["Find atomic mass on periodic table → that's g/mol","Compounds: sum all atom masses","Grams → Moles: divide by molar mass","Moles → Grams: multiply by molar mass"]},expand:"Water (H₂O): 2(1.01) + 16.00 = 18.02 g/mol. So 0.500 mol × 18.02 = 9.01 g of water.",askPrompt:"Calculate molar mass for glucose C₆H₁₂O₆ step by step"},
+  {id:5,type:"practice",topic:"1.1",title:"Practice: Grams to moles",preview:"54.0 g of aluminum. Molar mass = 27.0 g/mol. How many moles?",quiz:{q:"A block of pure aluminum has a mass of 54.0 g. Molar mass of Al = 27.0 g/mol. How many moles?",opts:["0.500 mol","2.00 mol","27.0 mol","1.20 × 10²⁴ mol"],ans:1,explain:"Grams ÷ molar mass = 54.0 ÷ 27.0 = 2.00 mol."},askPrompt:"Give me 3 more grams-to-moles practice problems"},
+  {id:6,type:"lesson",topic:"1.2",title:"Isotopes: same element, different weight",preview:"Every carbon atom has 6 protons — but some have 6 neutrons and some have 7.",highlight:{type:"text",text:"Isotopes = same proton count + different neutron count\n= different mass\n\nC-12: 6p + 6n = 12 amu\nC-13: 6p + 7n = 13 amu"},expand:"A mass spectrometer separates isotopes by curving ions through a magnetic field. Lighter ones curve more, heavier less. It counts ions at each position, giving mass AND abundance.",askPrompt:"Explain the four stages of a mass spectrometer in detail"},
+  {id:7,type:"analogy",topic:"1.2",title:"Tennis ball vs. bowling ball in a crosswind",preview:"Same force blows sideways. Which ball veers off course more?",highlight:{type:"text",text:"Tennis ball (light) → curves radically\nBowling ball (heavy) → barely moves\n\nMass spec: same magnetic force, lighter isotopes deflect MORE → separated by mass."},expand:"Ionization → Acceleration → Deflection by magnet → Detection. The detector records where each ion lands, revealing mass and relative abundance of each isotope.",askPrompt:"Which isotope deflects more in a mass spec — Cl-35 or Cl-37 — and why?"},
+  {id:8,type:"practice",topic:"1.2",title:"Practice: Weighted average atomic mass",preview:"Mass 10 (20%) + mass 11 (80%). What's the average atomic mass?",quiz:{q:"Isotope 1: 10.0 amu, 20.0% abundant. Isotope 2: 11.0 amu, 80.0% abundant. Average atomic mass?",opts:["10.2 amu","10.5 amu","10.8 amu","11.2 amu"],ans:2,explain:"(10.0 × 0.20) + (11.0 × 0.80) = 2.0 + 8.8 = 10.8 amu. Always convert % to decimals first!"},askPrompt:"Show me the magnesium weighted average atomic mass calculation"},
+  {id:9,type:"lesson",topic:"1.3",title:"The Law of Definite Proportions",preview:"Pure water is always 11% H and 89% O — anywhere on Earth, in any lab.",highlight:{type:"steps",steps:["Every pure compound has a fixed mass ratio","% Composition = (element mass ÷ molar mass) × 100","Different ratio = completely different compound"]},expand:"O in H₂O = (16.00 ÷ 18.02) × 100 = 88.8%. Always. Deviations indicate contamination or a different substance entirely.",askPrompt:"What is the percent composition of each element in CO₂?"},
+  {id:10,type:"lesson",topic:"1.3",title:"Empirical vs. Molecular Formulas",preview:"H₂O₂ and HO — one is the real thing, one is the simplified version.",highlight:{type:"steps",steps:["Empirical = simplest whole-number ratio (HO)","Molecular = actual atom count (H₂O₂)","% → mass → moles → divide by smallest → multiply til whole"]},expand:"The four-step rhyme: Percent to mass → Mass to mole → Divide by small → Multiply til whole. Works every time from combustion or percent composition data.",askPrompt:"Find the empirical formula for a compound that is 40% C, 6.7% H, 53.3% O"},
+  {id:11,type:"lesson",topic:"1.5",title:"The Atom Hotel: shells, subshells, orbitals",preview:"Electrons don't orbit in circles — they live in probability clouds, filling the lowest floors first.",highlight:{type:"text",text:"Floors = energy levels (n = 1, 2, 3…)\nSuites = subshells:\ns = 1 orbital = 2e⁻\np = 3 orbitals = 6e⁻\nd = 5 orbitals = 10e⁻\nf = 7 orbitals = 14e⁻"},expand:"Three rules: Aufbau (lowest energy first) → Pauli Exclusion (max 2e⁻/orbital, opposite spins) → Hund's Rule (one per orbital before pairing). Like bus passengers picking empty rows first.",askPrompt:"Write the full electron configuration for iron (Fe, Z=26)"},
+  {id:12,type:"practice",topic:"1.5",title:"Practice: Electron configuration",preview:"Ground-state nitrogen (Z=7) — which configuration is correct?",quiz:{q:"Correct ground-state electron configuration for neutral Nitrogen (Z=7)?",opts:["1s² 2s² 2p³","1s² 2s⁵","1s² 2s² 2p² 3s¹","1s² 2s¹ 2p⁴"],ans:0,explain:"7 electrons: 1s² + 2s² + 2p³. By Hund's Rule, the 3 p-electrons sit in separate orbitals with parallel spins."},askPrompt:"Explain noble gas shorthand notation and write it for sulfur"},
+  {id:13,type:"lesson",topic:"1.6",title:"PES: X-raying electron shells",preview:"We can't see electrons directly — but we can prove exactly where they live by kicking them out.",highlight:{type:"steps",steps:["Fire X-ray photons at atom","They knock electrons out of their shells","Measure energy needed to eject each one","Higher binding energy = electron was closer to nucleus"]},expand:"PES chart x-axis runs BACKWARDS — high binding energy (inner shells) on the LEFT. Peak height = electron count in that subshell. Governed by Coulomb's Law: F = kq₁q₂/r².",askPrompt:"Describe what the PES spectrum of sodium looks like compared to neon"},
+  {id:14,type:"lesson",topic:"1.7",title:"Two forces explain every periodic trend",preview:"Atomic radius, ionization energy, electronegativity — all come from the same two forces.",highlight:{type:"text",text:"→ Across a row: Zeff ↑ → stronger pull → radius ↓, IE ↑, EN ↑\n↓ Down a column: shielding ↑ → weaker pull → radius ↑, IE ↓, EN ↓"},expand:"Across a period: protons added, no new shielding shells → Zeff wins → atoms shrink. Down a group: new energy levels added → shielding wins → atoms expand.",askPrompt:"Rank F, O, N, C by atomic radius from largest to smallest and explain why"},
+  {id:15,type:"practice",topic:"1.7",title:"Practice: Periodic trends",preview:"Which Period 2 element has the smallest atomic radius?",quiz:{q:"Which element has the SMALLEST atomic radius?",opts:["Carbon (C)","Nitrogen (N)","Oxygen (O)","Fluorine (F)"],ans:3,explain:"All in Period 2. Fluorine has the most protons (9) → highest Zeff → strongest inward pull → smallest radius."},askPrompt:"Why does oxygen's first IE dip below nitrogen's despite having more protons?"},
+  {id:16,type:"lesson",topic:"1.8",title:"Valence electrons: the ones that actually matter",preview:"Not all electrons bond. Only the outermost shell electrons do anything chemically useful.",highlight:{type:"text",text:"Valence electrons: outermost shell → bond and react\nCore electrons: inner shells → never bond\n\nMassive IE jump = you just hit the core shell"},expand:"IE data: if the huge jump is between IE3 and IE4, the atom has 3 valence electrons → Group 13. Phosphorus (1s² 2s² 2p⁶ 3s² 3p³): n=3 holds 5 valence electrons → Group 15.",askPrompt:"How do successive ionization energies reveal an element's group number?"},
+  {id:17,type:"challenge",topic:"1.3",title:"Challenge: The damp precipitate trap",preview:"Student forgets to dry the precipitate. What happens to the calculated sand percentage?",quiz:{q:"Student leaves precipitate damp, inflating its measured mass. Effect on calculated sand mass percent?",opts:["Sand % falsely inflated","Sand % falsely deflated","No impact — water only affects salt","Starting mixture mass decreases"],ans:1,explain:"Damp precipitate → overestimated salt mass → Sand = Total − Salt, so overestimating salt forces sand mass and % DOWN. Classic AP lab error question."},askPrompt:"List all common gravimetric analysis errors and how each affects results"},
+  {id:18,type:"frq",topic:"1.3",title:"FRQ: The mystery mineral (glucose)",preview:"60.05 g sample: 24.02 g C, 4.04 g H, 31.99 g O. Find empirical and molecular formulas.",highlight:{type:"steps",steps:["C: 24.02÷12.01 = 2.00 mol | H: 4.04÷1.01 = 4.00 mol | O: 31.99÷16.00 = 2.00 mol","Divide by smallest (2.00) → 1:2:1 → empirical formula CH₂O","True mass = 180.18 g/mol; 180.18 ÷ 30.03 = 6","6 × CH₂O = C₆H₁₂O₆ (glucose!)"]},expand:"Part c: O's IE is lower than N's because of Hund's Rule. O has a paired 2p electron (↑↓ ↑ ↑) causing inter-electron repulsion. N has stable half-filled 2p³ (↑ ↑ ↑) — no repulsion.",askPrompt:"Walk me through this full FRQ including part c on ionization energy"},
+  {id:19,type:"challenge",topic:"1.8",title:"Challenge: Al vs. Mg third ionization energy",preview:"Mg has a higher first IE than Al. But which has the higher THIRD ionization energy?",quiz:{q:"Which element has a higher third ionization energy (IE3)?",opts:["Aluminum — more protons","Magnesium — IE3 strips a core electron","Both identical — same period","Aluminum — unstable d orbital"],ans:1,explain:"Mg has 2 valence electrons (3s²). IE3 rips a core 2p electron — massive energy. Al has 3 valence electrons, so IE3 just removes the last valence electron. Mg IE3 >> Al IE3."},askPrompt:"Explain why Mg's third ionization energy is so much higher than Al's"}
+];
+
+let feedCards = [...SEED_CARDS];
+
+// ─── API CALL ─────────────────────────────────────────
+async function callClaude(system, userMsg) {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-6",
+      max_tokens: 1000,
+      system: system,
+      messages: [{ role: "user", content: userMsg }]
+    })
+  });
+  if (!res.ok) throw new Error("API error: " + res.status);
+  const data = await res.json();
+  const text = data.content.map(i => i.text || "").join("");
+  return JSON.parse(text.replace(/```json|```/g, "").trim());
+}
+
+// ─── TAB SWITCHING ────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".tab[data-screen]").forEach(t => t.classList.remove("active"));
+  document.getElementById("screen-" + tab).classList.add("active");
+  document.querySelector(`.tab[data-screen="${tab}"]`)?.classList.add("active");
+  if (tab === "saved") renderSaved();
+  if (tab === "qbank") updateQBStats();
+}
+
+// ─── FEED ─────────────────────────────────────────────
+function tagMeta(type) {
+  return { lesson:{cls:"tag-lesson",label:"📖 Lesson"}, analogy:{cls:"tag-analogy",label:"💡 Analogy"}, practice:{cls:"tag-practice",label:"🧪 Practice"}, challenge:{cls:"tag-challenge",label:"🔥 Challenge"}, frq:{cls:"tag-frq",label:"📝 FRQ"} }[type] || {cls:"tag-lesson",label:"Lesson"};
+}
+
+function renderHL(h) {
+  if (!h) return "";
+  if (h.type === "steps") return `<div class="card-highlight">${h.steps.map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div>${s}</div></div>`).join("")}</div>`;
+  return `<div class="card-highlight"><div class="eq">${(h.text||"").replace(/\n/g,"<br>")}</div></div>`;
+}
+
+function renderCardQuiz(card) {
+  if (!card.quiz) return "";
+  const q = card.quiz, done = feedAnswered.has(card.id), chosen = feedAnswered.get(card.id);
+  return `<div class="quiz-wrap"><div class="quiz-q">${q.q}</div><div class="quiz-opts">
+    ${q.opts.map((o,i) => { let c="quiz-opt"; if(done){c+=" disabled";if(i===q.ans)c+=" correct";else if(i===chosen)c+=" wrong";} return`<button class="${c}" onclick="feedCheckAns(${card.id},${i})">${String.fromCharCode(65+i)}) ${o}</button>`; }).join("")}
+  </div><div class="quiz-feedback ${done?(feedCorrect.has(card.id)?'correct-fb':'wrong-fb'):''} ${done?'show':''}">${done?`${feedCorrect.has(card.id)?'✓ Correct! ':'✗ Not quite — '}${q.explain}`:''}</div></div>`;
+}
+
+function renderFeedCard(card) {
+  const tm = tagMeta(card.type), l = feedLiked.has(card.id), s = feedSaved.has(card.id);
+  return `<div class="card" id="card-${card.id}" data-type="${card.type}">
+    <div class="card-tag-row"><span class="tag ${tm.cls}">${tm.label}</span><span class="topic-label">${TOPICS[card.topic]||card.topic}</span></div>
+    <div class="card-body" onclick="feedToggleExpand(${card.id})"><div class="card-title">${card.title}</div><div class="card-preview">${card.preview}</div></div>
+    ${renderHL(card.highlight)}${renderCardQuiz(card)}
+    <div class="expand-body" id="fexp-${card.id}"><p>${card.expand||''}</p></div>
+    <div class="card-footer">
+      <button class="foot-btn ${l?'liked':''}" onclick="feedToggleLike(${card.id})"><i class="ti ti-heart"></i>${l?'1':'0'}</button>
+      <button class="foot-btn ${s?'saved':''}" onclick="feedToggleSave(${card.id})"><i class="ti ti-bookmark"></i></button>
+      <button class="foot-btn" onclick="feedToggleExpand(${card.id})"><i class="ti ti-chevron-down"></i> More</button>
+      <button class="ask-btn-sm" onclick="window.open('https://claude.ai/new?q=${encodeURIComponent(card.askPrompt||'')}','_blank')">Ask Claude ↗</button>
+    </div>
+  </div>`;
+}
+
+function renderFeed() {
+  const v = feedFilter === "all" ? feedCards : feedCards.filter(c => c.type === feedFilter);
+  document.getElementById("feed").innerHTML = v.map(renderFeedCard).join("");
+  updateFeedProgress();
+}
+
+function feedToggleExpand(id) { document.getElementById("fexp-"+id)?.classList.toggle("open"); }
+function feedCheckAns(id, idx) {
+  const card = feedCards.find(c => c.id === id);
+  if (!card || feedAnswered.has(id)) return;
+  feedAnswered.set(id, idx);
+  if (idx === card.quiz.ans) feedCorrect.add(id);
+  renderFeed();
+}
+function feedToggleLike(id) { if(feedLiked.has(id))feedLiked.delete(id);else feedLiked.add(id); renderFeed(); }
+function feedToggleSave(id) { if(feedSaved.has(id))feedSaved.delete(id);else feedSaved.add(id); renderFeed(); }
+function updateFeedProgress() {
+  const total = feedCards.filter(c=>c.quiz).length;
+  const pct = total ? Math.round((feedAnswered.size/total)*100) : 0;
+  document.getElementById("prog").style.width = Math.min(pct,100)+"%";
+  document.getElementById("prog-pct").textContent = Math.min(pct,100)+"%";
+}
+
+document.getElementById("feed-pills").addEventListener("click", e => {
+  const p = e.target.closest(".pill"); if(!p) return;
+  feedFilter = p.dataset.f;
+  document.querySelectorAll("#feed-pills .pill").forEach(x=>x.classList.remove("active"));
+  p.classList.add("active"); renderFeed();
+});
+
+const FEED_SYSTEM = `You are an expert AP Chemistry tutor. Unit 1: Atomic Structure and Properties. Topics: moles/molar mass, mass spectroscopy, isotopes, substances/mixtures, empirical/molecular formulas, electron configuration, PES, periodic trends, valence electrons.
+Generate a single study card as pure JSON (no markdown, no backticks). Fields:
+- type: "lesson","analogy","practice","challenge", or "frq"
+- topic: "1.1","1.2","1.3","1.5","1.6","1.7", or "1.8"
+- title: punchy max 8 words
+- preview: one hook sentence
+- highlight: {type:"text",text:"..."} (use \\n for line breaks) OR {type:"steps",steps:["step 1","step 2",...]}
+- expand: 2-3 sentence deeper explanation
+- askPrompt: a follow-up question for the student
+- quiz (REQUIRED if type is "practice" or "challenge"): {q:"question",opts:["A","B","C","D"],ans:0,explain:"explanation"} where ans is 0-based index
+Tone: nerdy, fun, precise. Analogies must be vivid. Questions must be AP exam level.`;
+
+async function feedGen(type) {
+  const loader = document.getElementById("feed-loader");
+  const msg = document.getElementById("feed-loader-msg");
+  loader.classList.add("on");
+  msg.textContent = {lesson:"Cooking up a lesson…",analogy:"Mixing an analogy…",practice:"Crafting a problem…",challenge:"Forging a challenge…"}[type]||"Generating…";
+  const topicKeys = Object.keys(TOPICS);
+  const topic = topicKeys[Math.floor(Math.random()*topicKeys.length)];
+  try {
+    const parsed = await callClaude(FEED_SYSTEM, `Generate a ${type} card for topic ${topic}: ${TOPICS[topic]}. Be creative.`);
+    feedCards.unshift({...parsed, id:Date.now()});
+    feedFilter = "all";
+    document.querySelectorAll("#feed-pills .pill").forEach(x=>x.classList.remove("active"));
+    document.querySelector("#feed-pills .pill[data-f='all']").classList.add("active");
+    renderFeed();
+    document.getElementById("feed").firstElementChild?.scrollIntoView({behavior:"smooth",block:"start"});
+  } catch(e) { alert("Couldn't generate card — check your connection and try again."); }
+  finally { loader.classList.remove("on"); }
+}
+
+// ─── QUESTION BANK ────────────────────────────────────
+function updateQBStats() {
+  document.getElementById("stat-answered").textContent = qbTotalAnswered;
+  document.getElementById("stat-correct").textContent = qbTotalCorrect;
+  document.getElementById("stat-pct").textContent = qbTotalAnswered ? Math.round((qbTotalCorrect/qbTotalAnswered)*100)+"%" : "—";
+  renderSessionHistory();
+}
+
+function renderSessionHistory() {
+  const el = document.getElementById("session-history");
+  if (!sessionHistory.length) { el.innerHTML='<div style="font-size:12px;color:var(--text3)">No sessions yet — start one above!</div>'; return; }
+  el.innerHTML = sessionHistory.slice(-5).reverse().map(s => `
+    <div class="session-item">
+      <div><div class="session-item-name">${s.label}</div><div class="session-item-sub">${s.count} questions · ${s.date}</div></div>
+      <div class="session-pct" style="color:${s.pct>=70?'var(--teal)':s.pct>=50?'var(--amber)':'var(--coral)'}">${s.pct}%</div>
+    </div>`).join("");
+}
+
+function showQBHome() {
+  document.getElementById("qb-home").style.display = "block";
+  document.getElementById("qb-active").style.display = "none";
+  document.getElementById("qb-results").style.display = "none";
+  updateQBStats();
+}
+
+const QB_SYSTEM = `You are an expert AP Chemistry exam question writer for Unit 1. Generate a single AP Chemistry multiple choice question as pure JSON (no markdown, no backticks).
+Fields:
+- topic: "1.1","1.2","1.3","1.5","1.6","1.7", or "1.8"
+- topicName: full topic name
+- difficulty: "easy", "medium", or "hard"
+- question: full question text
+- opts: array of exactly 4 answer choices (strings, no A/B/C/D prefix)
+- ans: 0-based index of correct answer
+- explain: 2-3 sentence explanation of correct answer and why others are wrong
+DIFFICULTY: easy=direct recall/single step, medium=multi-step/new context, hard=multi-concept/lab error/PES interpretation.
+Be chemically precise. Vary question types. NEVER repeat obvious patterns.`;
+
+async function startQBank() {
+  const topicVal = document.getElementById("qb-topic").value;
+  const diffVal = document.getElementById("qb-diff").value;
+  const countVal = parseInt(document.getElementById("qb-count").value) || 10;
+  const endless = countVal === 0;
+  const labelTopic = topicVal === "all" ? "All Topics" : (TOPICS[topicVal]||topicVal);
+  const labelDiff = diffVal === "all" ? "All Diff." : diffVal.charAt(0).toUpperCase()+diffVal.slice(1);
+  qbSession = {questions:[],current:0,correct:0,wrong:0,topicWrong:{},endless,target:endless?9999:countVal,topic:topicVal,diff:diffVal,label:`${labelTopic} · ${labelDiff}`};
+  document.getElementById("qb-home").style.display = "none";
+  document.getElementById("qb-results").style.display = "none";
+  document.getElementById("qb-active").style.display = "block";
+  document.getElementById("qb-session-label").textContent = "Unit 1 · " + qbSession.label;
+  await loadNextQuestion();
+}
+
+async function loadNextQuestion() {
+  const qn = qbSession.current + 1;
+  const total = qbSession.endless ? "∞" : qbSession.target;
+  document.getElementById("qb-counter").textContent = `Q ${qn} / ${total}`;
+  const pct = qbSession.endless ? 0 : Math.round(((qn-1)/qbSession.target)*100);
+  document.getElementById("qb-prog-fill").style.width = pct + "%";
+  document.getElementById("qb-spinner").classList.add("on");
+  document.getElementById("qb-q-wrap").innerHTML = "";
+  document.getElementById("qb-gen-note").textContent = "";
+  const topicKeys = Object.keys(TOPICS);
+  const topic = qbSession.topic === "all" ? topicKeys[Math.floor(Math.random()*topicKeys.length)] : qbSession.topic;
+  const diff = qbSession.diff === "all" ? ["easy","medium","hard"][Math.floor(Math.random()*3)] : qbSession.diff;
+  try {
+    const q = await callClaude(QB_SYSTEM, `Generate a ${diff} question on topic ${topic} (${TOPICS[topic]}). Make it unique and precise.`);
+    qbSession.questions.push({...q, answered:false, chosen:-1});
+    document.getElementById("qb-spinner").classList.remove("on");
+    renderQBQuestion();
+  } catch(e) {
+    document.getElementById("qb-spinner").classList.remove("on");
+    document.getElementById("qb-gen-note").textContent = "Error generating question — tap Next to retry.";
+    document.getElementById("qb-q-wrap").innerHTML = `<button class="qb-next show" onclick="qbNext()">Try next →</button>`;
+  }
+}
+
+function renderQBQuestion() {
+  const q = qbSession.questions[qbSession.questions.length-1];
+  const done = q.answered;
+  const diffCls = {easy:"diff-easy",medium:"diff-medium",hard:"diff-hard"}[q.difficulty]||"diff-medium";
+  document.getElementById("qb-q-wrap").innerHTML = `
+    <div class="qb-card">
+      <span class="qb-diff-badge ${diffCls}">${(q.difficulty||"medium").charAt(0).toUpperCase()+(q.difficulty||"medium").slice(1)} · ${q.topicName||TOPICS[q.topic]||q.topic}</span>
+      <div class="qb-question">${q.question}</div>
+      <div class="qb-opts">
+        ${(q.opts||[]).map((o,i)=>{
+          let c="qb-opt";
+          if(done){c+=" disabled";if(i===q.ans)c+=" correct";else if(i===q.chosen)c+=" wrong";}
+          return`<button class="${c}" onclick="qbAnswer(${i})">${String.fromCharCode(65+i)}) ${o}</button>`;
+        }).join("")}
+      </div>
+      <div class="qb-feedback ${done?(q.chosen===q.ans?'correct-fb':'wrong-fb'):''} ${done?'show':''}">${done?`${q.chosen===q.ans?'✓ Correct! ':'✗ Not quite — '}${q.explain}`:''}</div>
+    </div>
+    <button class="qb-next ${done?'show':''}" id="qb-next-btn" onclick="qbNext()">${nextBtnLabel()}</button>`;
+}
+
+function nextBtnLabel() {
+  if (qbSession.endless) return "Next question →";
+  return (qbSession.current >= qbSession.target) ? "See results →" : "Next question →";
+}
+
+function qbAnswer(idx) {
+  const q = qbSession.questions[qbSession.questions.length-1];
+  if (q.answered) return;
+  q.answered = true; q.chosen = idx;
+  qbSession.current++;
+  qbTotalAnswered++;
+  if (idx === q.ans) { qbSession.correct++; qbTotalCorrect++; }
+  else { qbSession.wrong++; const t=q.topic||"unknown"; qbSession.topicWrong[t]=(qbSession.topicWrong[t]||0)+1; }
+  renderQBQuestion();
+}
+
+async function qbNext() {
+  if (!qbSession.endless && qbSession.current >= qbSession.target) { showResults(); return; }
+  await loadNextQuestion();
+}
+
+function showResults() {
+  document.getElementById("qb-active").style.display = "none";
+  document.getElementById("qb-results").style.display = "block";
+  const total = qbSession.correct + qbSession.wrong;
+  const pct = total ? Math.round((qbSession.correct/total)*100) : 0;
+  document.getElementById("res-emoji").textContent = pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📚";
+  document.getElementById("res-score").textContent = `${qbSession.correct} / ${total}`;
+  document.getElementById("res-sub").textContent = pct>=90?"Excellent — AP exam ready!":pct>=70?"Great work — keep it up!":pct>=50?"Good effort — review weak spots.":"Keep studying — you've got this!";
+  document.getElementById("res-correct").textContent = qbSession.correct;
+  document.getElementById("res-wrong").textContent = qbSession.wrong;
+  document.getElementById("res-pct").textContent = pct + "%";
+  const weakEntry = Object.entries(qbSession.topicWrong).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById("res-topic").textContent = weakEntry ? (TOPICS[weakEntry[0]]||weakEntry[0]) : "—";
+  sessionHistory.push({label:qbSession.label, count:total, pct, date:new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"})});
+  updateQBStats();
+}
+
+// ─── SAVED ────────────────────────────────────────────
+function renderSaved() {
+  const el = document.getElementById("saved-feed");
+  const savedCards = feedCards.filter(c => feedSaved.has(c.id));
+  if (!savedCards.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-bookmark"></i>No saved cards yet.<br>Tap the bookmark on any feed card to save it here.</div>'; return; }
+  el.innerHTML = savedCards.map(renderFeedCard).join("");
+}
+
+// ─── INIT ─────────────────────────────────────────────
+showQBHome();
+renderFeed();
+</script>
+</body>
+</html>
