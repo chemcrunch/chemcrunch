@@ -34,9 +34,9 @@
     .home-logo{font-size:44px;margin-bottom:10px;animation:float 3s ease-in-out infinite;display:block}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     .home-title{font-size:30px;font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,#fff 0%,var(--blue2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
-    .home-sub{font-size:13px;color:var(--text2)}
-    .home-stats{display:flex;gap:8px;justify-content:center;margin-top:18px}
-    .home-stat{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:8px 14px;text-align:center}
+    .home-sub{font-size:14px;color:var(--text2);line-height:1.6;font-weight:500}
+    .home-stats{display:flex;gap:6px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+    .home-stat{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:8px 11px;text-align:center}
     .home-stat-num{font-size:16px;font-weight:700;color:var(--blue2)}
     .home-stat-label{font-size:10px;color:var(--text3);margin-top:1px}
     .review-card{margin:20px 16px 8px;background:linear-gradient(135deg,var(--blue-dark),var(--blue));border-radius:var(--radius-xl);padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:transform 0.2s;box-shadow:0 8px 30px var(--blue-glow)}
@@ -58,6 +58,101 @@
     .unit-prog-fill{height:2px;border-radius:999px;transition:width 0.4s}
     .unit-arrow{color:var(--text3);font-size:16px;flex-shrink:0}
 
+    /* BROWSE ROW (Labs/Exceptions/Formulas + Interactive Tools) */
+    .browse-row{display:flex;gap:10px;overflow-x:auto;padding:0 16px 4px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+    .browse-row::-webkit-scrollbar{display:none}
+    .browse-card{flex-shrink:0;width:128px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:14px 12px;cursor:pointer;scroll-snap-align:start;transition:all 0.15s}
+    .browse-card:active{transform:scale(0.96);border-color:var(--blue)}
+    .browse-card-icon{font-size:24px;margin-bottom:8px}
+    .browse-card-title{font-size:12px;font-weight:700;color:var(--text1);margin-bottom:3px;line-height:1.3}
+    .browse-card-sub{font-size:10px;color:var(--text3);line-height:1.4}
+
+    /* MISSION SECTION */
+    .mission-section{margin:28px 16px 18px;padding:22px 18px;background:linear-gradient(160deg,rgba(0,87,255,0.08),rgba(155,89,255,0.05));border:1px solid var(--border2);border-radius:var(--radius-xl)}
+    .mission-title{font-size:16px;font-weight:800;color:var(--text1);margin-bottom:10px;letter-spacing:-0.2px}
+    .mission-text{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:18px}
+    .mission-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .mission-stat{text-align:center;background:rgba(255,255,255,0.03);border-radius:var(--radius);padding:12px 6px}
+    .mission-stat-num{font-size:20px;font-weight:800;color:var(--blue2);letter-spacing:-0.5px}
+    .mission-stat-label{font-size:9.5px;color:var(--text3);margin-top:4px;line-height:1.3}
+
+    /* FOOTER */
+    .home-footer{padding:18px 24px 36px;text-align:center}
+    .home-footer-line{font-size:11px;color:var(--text3);line-height:1.7}
+
+    /* BROWSE DETAIL PAGES */
+    .browse-intro{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:18px;padding:0 2px}
+    .browse-detail-card{display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:14px;margin-bottom:10px;cursor:pointer;transition:all 0.15s}
+    .browse-detail-card:active{transform:scale(0.98);border-color:var(--blue)}
+    .browse-detail-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+    .browse-detail-subtopic{font-size:10px;color:var(--text3);margin-bottom:3px;font-weight:600}
+    .browse-detail-title{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:4px;line-height:1.3}
+    .browse-detail-desc{font-size:12px;color:var(--text2);line-height:1.5}
+
+    .exception-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px}
+    .exception-unit-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;margin-bottom:10px}
+    .exception-title{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:10px;line-height:1.35}
+    .exception-row{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:6px;padding:8px 10px;background:rgba(255,255,255,0.03);border-radius:8px}
+    .exception-row.exception-actual{background:rgba(255,184,0,0.08);color:#FFD060}
+    .exception-label{font-weight:700;color:var(--text1)}
+    .exception-row.exception-actual .exception-label{color:#FFD060}
+    .exception-why{font-size:12px;color:var(--text2);line-height:1.6;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+
+    .formula-category-label{font-size:11px;font-weight:700;color:var(--blue2);text-transform:uppercase;letter-spacing:0.6px;margin:18px 0 10px;padding:0 2px}
+    .formula-category-label:first-child{margin-top:0}
+    .formula-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:13px 14px;margin-bottom:8px}
+    .formula-eq{font-family:'Menlo','Monaco',monospace;font-size:14px;color:var(--text1);font-weight:600;margin-bottom:5px}
+    .formula-notes{font-size:11px;color:var(--text3);line-height:1.5}
+
+    /* INTERACTIVE TOOLS - SHARED */
+    .tool-intro{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px;padding:0 2px}
+    .hybrid-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:4px}
+    .hybrid-tabs::-webkit-scrollbar{display:none}
+    .hybrid-tab{flex-shrink:0;padding:8px 14px;border-radius:999px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s}
+    .hybrid-tab.active{background:rgba(255,255,255,0.06);border-width:1.5px}
+
+    /* VSEPR */
+    .vsepr-canvas-wrap{background:var(--bg2);border-radius:12px;padding:8px;margin-bottom:14px}
+    .vsepr-info{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:14px;margin-bottom:14px}
+    .vsepr-info-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border)}
+    .vsepr-info-row:last-child{border-bottom:none}
+    .vsepr-info-label{font-size:12px;color:var(--text3)}
+    .vsepr-info-val{font-size:12px;color:var(--text1);font-weight:700}
+    .vsepr-shape-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .vsepr-shape-btn{padding:10px;border-radius:var(--radius);border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;line-height:1.5;text-align:center}
+    .vsepr-shape-btn.active{background:rgba(0,87,255,0.12);border-color:var(--blue);color:#6BA3FF}
+
+    /* HYBRIDIZATION */
+    .hybrid-display{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:14px;margin-top:8px}
+    .hybrid-info-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border)}
+    .hybrid-info-row:last-child{border-bottom:none}
+    .hybrid-info-label{font-size:12px;color:var(--text3)}
+    .hybrid-info-val{font-size:12px;color:var(--text1);font-weight:700}
+    .hybrid-examples-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;font-weight:700}
+    .hybrid-examples{display:flex;gap:6px;flex-wrap:wrap}
+    .hybrid-example-chip{font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px}
+
+    /* TITRATION */
+    .titration-graph-wrap{margin-bottom:12px}
+    .titration-readout{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+    .titration-readout-item{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:10px;text-align:center}
+    .titration-readout-label{font-size:9px;color:var(--text3);display:block;margin-bottom:4px}
+    .titration-readout-val{font-size:14px;font-weight:800;color:var(--text1)}
+    .titration-slider{width:100%;margin:8px 0 14px;accent-color:var(--blue)}
+    .titration-legend{display:flex;gap:16px;justify-content:center}
+    .titration-legend-item{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
+    .titration-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+    /* KINETICS */
+    .kinetics-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-top:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--radius)}
+
+    /* GALVANIC CELL */
+    .galvanic-part{transition:opacity 0.15s}
+    .galvanic-part:active{opacity:0.7}
+    .galvanic-info{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:14px;margin-top:12px;min-height:80px}
+    .galvanic-info-title{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:8px}
+    .galvanic-info-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
     /* FEED TOPBAR */
     #feed-screen{background:var(--bg)}
     .feed-topbar{position:absolute;top:0;left:0;right:0;z-index:20;padding:14px 16px 10px;display:flex;align-items:center;gap:10px;background:linear-gradient(to bottom,rgba(8,9,14,0.97) 0%,transparent 100%)}
@@ -70,10 +165,10 @@
     /* SWIPE FEED */
     .swipe-container{position:absolute;inset:0;overflow:hidden;touch-action:none}
     .swipe-track{display:flex;flex-direction:column;transition:transform 0.38s cubic-bezier(0.4,0,0.2,1);will-change:transform}
-    .swipe-slide{width:100%;height:100%;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 18px 90px;position:relative}
+    .swipe-slide{width:100%;height:100%;flex-shrink:0;display:flex;flex-direction:column;position:relative;overflow:hidden}
 
     /* CARDS */
-    .slide-card{width:100%;max-width:420px;border-radius:var(--radius-xl);padding:20px;position:relative;overflow:hidden;animation:cardIn 0.4s cubic-bezier(0.4,0,0.2,1)}
+    .slide-card{width:100%;height:100%;border-radius:0;padding:84px 22px 110px;position:relative;overflow-y:auto;animation:cardIn 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;justify-content:center}
     @keyframes cardIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
     .slide-card.lesson{background:linear-gradient(145deg,#0D1B3E,#0F2460);border:1px solid rgba(0,87,255,0.3)}
     .slide-card.analogy{background:linear-gradient(145deg,#1A1200,#2A1E00);border:1px solid rgba(255,184,0,0.3)}
@@ -81,7 +176,7 @@
     .slide-card.challenge{background:linear-gradient(145deg,#1A0800,#2A1000);border:1px solid rgba(255,90,90,0.3)}
     .slide-card.frq{background:linear-gradient(145deg,#120020,#1A0030);border:1px solid rgba(155,89,255,0.3)}
     .slide-card.lab{background:linear-gradient(145deg,#001218,#001A22);border:1px solid rgba(0,214,143,0.25)}
-    .card-glow{position:absolute;top:-40px;right:-40px;width:100px;height:100px;border-radius:50%;filter:blur(35px);opacity:0.35;pointer-events:none}
+    .card-glow{position:absolute;top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;filter:blur(60px);opacity:0.3;pointer-events:none}
     .lesson .card-glow{background:var(--blue)}.analogy .card-glow{background:var(--amber)}.practice .card-glow{background:var(--green)}.challenge .card-glow{background:var(--coral)}.frq .card-glow{background:var(--purple)}.lab .card-glow{background:var(--green)}
     .card-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
     .card-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:0.2px}
@@ -92,8 +187,8 @@
     .frq .card-tag{background:rgba(155,89,255,0.2);color:#C090FF}
     .lab .card-tag{background:rgba(0,214,143,0.15);color:#00D68F}
     .card-subtopic{font-size:10px;color:rgba(255,255,255,0.35);font-weight:500}
-    .card-title{font-size:18px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:8px;letter-spacing:-0.3px}
-    .card-preview{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:14px}
+    .card-title{font-size:22px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:10px;letter-spacing:-0.3px}
+    .card-preview{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.65;margin-bottom:16px}
     .card-highlight{background:rgba(0,0,0,0.3);border-radius:var(--radius);padding:12px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.05)}
     .card-highlight .eq{font-family:'Menlo','Monaco',monospace;font-size:12px;color:#fff;white-space:pre-line;line-height:1.7}
     .card-highlight .step{display:flex;gap:9px;margin-bottom:7px;align-items:flex-start}
@@ -282,11 +377,12 @@
     <div class="home-hero">
       <span class="home-logo">⚗️</span>
       <div class="home-title">ChemCrunch</div>
-      <div class="home-sub">AP Chemistry · Swipe to learn</div>
+      <div class="home-sub">Cram less. Understand more. 🧪<br><span style="opacity:0.6;font-size:12px">Built by an AP Chem student, for AP Chem students</span></div>
       <div class="home-stats">
         <div class="home-stat"><div class="home-stat-num">9</div><div class="home-stat-label">Units</div></div>
-        <div class="home-stat"><div class="home-stat-num">100+</div><div class="home-stat-label">Questions</div></div>
-        <div class="home-stat"><div class="home-stat-num" id="streak-num">7</div><div class="home-stat-label">Day streak 🔥</div></div>
+        <div class="home-stat"><div class="home-stat-num">300+</div><div class="home-stat-label">Questions</div></div>
+        <div class="home-stat"><div class="home-stat-num" id="streak-num">1</div><div class="home-stat-label">Day streak 🔥</div></div>
+        <div class="home-stat"><div class="home-stat-num" id="user-count-display">—</div><div class="home-stat-label">Students</div></div>
       </div>
     </div>
     <div class="review-card" onclick="openUnit('review','AP Exam Review','All Units · Full Prep')">
@@ -296,6 +392,87 @@
     </div>
     <div class="section-label">Choose a Unit</div>
     <div class="unit-grid" id="unit-grid"></div>
+
+    <div class="section-label">Browse</div>
+    <div class="browse-row">
+      <div class="browse-card" onclick="openBrowseCategory('labs')">
+        <div class="browse-card-icon">🔬</div>
+        <div class="browse-card-title">Labs</div>
+        <div class="browse-card-sub">See every experiment</div>
+      </div>
+      <div class="browse-card" onclick="openBrowseCategory('exceptions')">
+        <div class="browse-card-icon">⚠️</div>
+        <div class="browse-card-title">AP Chem Exceptions</div>
+        <div class="browse-card-sub">The rules that break the rules</div>
+      </div>
+      <div class="browse-card" onclick="openBrowseCategory('formulas')">
+        <div class="browse-card-icon">📐</div>
+        <div class="browse-card-title">Formulas</div>
+        <div class="browse-card-sub">Every equation, one place</div>
+      </div>
+    </div>
+
+    <div class="section-label">Interactive Tools</div>
+    <div class="browse-row">
+      <div class="browse-card" onclick="openTool('vsepr')">
+        <div class="browse-card-icon">🧬</div>
+        <div class="browse-card-title">VSEPR Models</div>
+        <div class="browse-card-sub">Build molecular shapes</div>
+      </div>
+      <div class="browse-card" onclick="openTool('hybridization')">
+        <div class="browse-card-icon">⚛️</div>
+        <div class="browse-card-title">Hybridization</div>
+        <div class="browse-card-sub">sp, sp², sp³ explorer</div>
+      </div>
+      <div class="browse-card" onclick="openTool('titration')">
+        <div class="browse-card-icon">🧪</div>
+        <div class="browse-card-title">Titration Graphs</div>
+        <div class="browse-card-sub">Drag the curve, see pH shift</div>
+      </div>
+      <div class="browse-card" onclick="openTool('kinetics')">
+        <div class="browse-card-icon">📈</div>
+        <div class="browse-card-title">Kinetics Grapher</div>
+        <div class="browse-card-sub">Order vs. straight-line plots</div>
+      </div>
+      <div class="browse-card" onclick="openTool('galvanic')">
+        <div class="browse-card-icon">🔋</div>
+        <div class="browse-card-title">Galvanic Cell</div>
+        <div class="browse-card-sub">Interactive labeled diagram</div>
+      </div>
+    </div>
+
+    <div class="mission-section">
+      <div class="mission-title">Why ChemCrunch exists</div>
+      <div class="mission-text">AP Chem is one of the hardest classes most of us will ever take — dense, fast-moving, and easy to fall behind in. ChemCrunch turns the content into something you'll actually want to open: short, swipeable lessons that respect your time and your attention span, built the way we actually study.</div>
+      <div class="mission-stats">
+        <div class="mission-stat"><div class="mission-stat-num" id="mission-student-count">—</div><div class="mission-stat-label">Students using ChemCrunch</div></div>
+        <div class="mission-stat"><div class="mission-stat-num">9</div><div class="mission-stat-label">Full AP units covered</div></div>
+        <div class="mission-stat"><div class="mission-stat-num">300+</div><div class="mission-stat-label">Practice questions</div></div>
+      </div>
+    </div>
+
+    <div class="home-footer">
+      <div class="home-footer-line">⚗️ ChemCrunch — built by an AP Chem student, for AP Chem students.</div>
+      <div class="home-footer-line">Have feedback or found a mistake? Use the 🤖 Ask AI button on any card or reach out directly.</div>
+    </div>
+  </div>
+
+  <!-- LAB/FORMULA/EXCEPTION BROWSE SCREEN -->
+  <div class="screen hidden-right" id="browse-screen">
+    <div class="qb-topbar">
+      <button class="qb-back" onclick="closeBrowse()"><span style="font-size:18px">←</span></button>
+      <div class="qb-topbar-title" id="browse-title">Browse</div>
+    </div>
+    <div class="qb-body" id="browse-body"></div>
+  </div>
+
+  <!-- INTERACTIVE TOOL SCREEN -->
+  <div class="screen hidden-right" id="tool-screen">
+    <div class="qb-topbar">
+      <button class="qb-back" onclick="closeTool()"><span style="font-size:18px">←</span></button>
+      <div class="qb-topbar-title" id="tool-title">Tool</div>
+    </div>
+    <div class="qb-body" id="tool-body"></div>
   </div>
 
   <!-- FEED -->
@@ -344,6 +521,7 @@
     <div class="comment-sheet" id="comment-sheet">
       <div class="comment-sheet-handle"></div>
       <div class="comment-sheet-title" id="comment-sheet-title">🤖 Ask AI</div>
+      <div id="askai-quota-label" style="font-size:11px;color:var(--text3);margin-bottom:10px;margin-top:-8px"></div>
       <div class="comment-list" id="comment-list"></div>
       <div class="comment-input-row">
         <input class="comment-input" id="comment-input" placeholder="Ask anything about this topic…" onkeydown="if(event.key==='Enter')postComment()" />
@@ -426,6 +604,56 @@ const UNITS=[
 ];
 
 // ── MASTER QUESTION BANK (100+ Unit 1 questions from PDF) ──
+// ── BROWSE: LABS INDEX (pulls real lab cards by reference) ──
+const LABS_INDEX=[
+  {unit:"1",subtopic:"1.2 · Mass Spectroscopy",title:"Inside a mass spectrometer",anim:"massSpec",desc:"Watch ions get fired, accelerated, and deflected by mass — heavier ions barely curve at all."},
+  {unit:"1",subtopic:"1.3 · Gravimetric Analysis",title:"Gravimetric Analysis",anim:"precipitation",desc:"How chemists measure what they can't see directly — by weighing a precipitate."},
+  {unit:"5",subtopic:"5.1 · Collision Theory",title:"Watching molecular collisions in real time",anim:"kinetics",desc:"Faster particles collide more often AND harder — see why heat speeds up reactions."},
+  {unit:"7",subtopic:"7.1 · Dynamic Equilibrium",title:"Watching a reaction reach equilibrium",anim:"equilibrium",desc:"Molecules constantly convert back and forth — equilibrium is a moving balance."},
+  {unit:"8",subtopic:"8.9 · Titration",title:"Running an acid-base titration",anim:"titration",desc:"Watch base drip into acid until the indicator flashes pink at the endpoint."},
+  {unit:"9",subtopic:"9.7 · Galvanic Cells",title:"Watching electrons flow in a galvanic cell",anim:"electrochem",desc:"Zinc oxidizes at the anode, electrons travel through the wire, copper is reduced at the cathode."},
+];
+
+// ── BROWSE: AP CHEM EXCEPTIONS ──
+const EXCEPTIONS_DATA=[
+  {unit:"1",title:"Chromium & Copper skip the pattern",rule:"Expected: [Ar] 3d⁴ 4s² for Cr, [Ar] 3d⁹ 4s² for Cu",exception:"Actual: [Ar] 3d⁵ 4s¹ for Cr, [Ar] 3d¹⁰ 4s¹ for Cu",why:"Half-filled (d⁵) and fully-filled (d¹⁰) subshells have extra stability from exchange energy, so one 4s electron jumps to 3d."},
+  {unit:"1",title:"Aluminum's ionization energy dips below Magnesium's",rule:"Expected: IE should increase steadily left to right across Period 3",exception:"Actual: IE(Al) = 578 kJ/mol is LOWER than IE(Mg) = 738 kJ/mol",why:"Al's valence electron is in the 3p subshell (higher energy, more shielded) while Mg's is in 3s — easier to remove despite Al having more protons."},
+  {unit:"1",title:"Oxygen's ionization energy dips below Nitrogen's",rule:"Expected: IE should increase steadily left to right",exception:"Actual: IE(O) = 1314 kJ/mol is LOWER than IE(N) = 1402 kJ/mol",why:"N has a half-filled, extra-stable 2p³ configuration. O's 2p⁴ has one paired electron experiencing repulsion, making it easier to remove."},
+  {unit:"2",title:"Boron and Beryllium break the octet rule",rule:"Expected: every atom wants 8 valence electrons (octet)",exception:"Actual: BF₃ is stable with only 6 electrons around B; BeCl₂ is stable with only 4 around Be",why:"B and Be are too small and don't have enough valence electrons to reach 8 even when forming all possible bonds — they're stable as electron-deficient species."},
+  {unit:"2",title:"Expanded octets for period 3+ elements",rule:"Expected: max 8 electrons around the central atom",exception:"Actual: SF₆ has 12 electrons around S; PCl₅ has 10 around P",why:"Period 3+ elements have accessible d-orbitals, allowing more than 8 electrons around the central atom. This is impossible for period 2 elements (no d-orbitals available)."},
+  {unit:"4",title:"Not all double-replacement reactions form a precipitate",rule:"Expected: combining two ionic solutions always gives a visible reaction",exception:"Actual: mixing NaCl(aq) + KNO₃(aq) gives... nothing observable",why:"All four possible ions (Na⁺, Cl⁻, K⁺, NO₃⁻) form soluble compounds. No precipitate forms because solubility rules predict everything stays dissolved."},
+  {unit:"5",title:"Catalysts don't appear in the rate law — usually",rule:"Expected: anything that speeds up a reaction should appear in the rate law",exception:"Actual: catalysts are typically absent from the overall rate law expression",why:"Catalysts are regenerated, not consumed. They open a new low-Eₐ pathway but their concentration usually doesn't limit the rate the way reactants do, unless they're an intermediate's source."},
+  {unit:"7",title:"Adding inert gas at constant volume causes NO shift",rule:"Expected: adding any gas should shift equilibrium somehow",exception:"Actual: adding inert argon to a rigid container doesn't shift the equilibrium at all",why:"At constant volume, partial pressures (and concentrations) of the actual reacting species are unchanged. Total pressure rises, but Q still equals K — no shift."},
+  {unit:"8",title:"Pure water isn't 'acidic' even when pH drops below 7",rule:"Expected: pH < 7 always means acidic",exception:"Actual: hot pure water (60°C) has pH ≈ 6.5 but is still perfectly neutral",why:"Autoionization is endothermic — heating increases Kw, raising both [H₃O⁺] and [OH⁻] equally. Neutral means [H₃O⁺]=[OH⁻], and the neutral pH point itself shifts with temperature."},
+  {unit:"9",title:"A catalyst can't make a non-spontaneous reaction spontaneous",rule:"Expected: enough catalyst should eventually force any reaction to occur",exception:"Actual: no catalyst can change the sign of ΔG",why:"Catalysts only lower activation energy (kinetics) — they never touch the thermodynamics (ΔG, ΔH, ΔS) of reactants vs products. A non-spontaneous reaction stays non-spontaneous no matter how good the catalyst is."},
+];
+
+// ── BROWSE: FORMULA SHEET ──
+const FORMULAS_DATA=[
+  {unit:"1",category:"Atomic Structure",formula:"Average Atomic Mass = Σ(isotope mass × fractional abundance)",notes:"Sum across all naturally occurring isotopes"},
+  {unit:"1",category:"Atomic Structure",formula:"moles = mass (g) ÷ molar mass (g/mol)",notes:"The universal bridge between mass and particle count"},
+  {unit:"1",category:"Atomic Structure",formula:"particles = moles × 6.022 × 10²³",notes:"Avogadro's number"},
+  {unit:"2",category:"Bonding",formula:"Formal Charge = V − (L + B/2)",notes:"V=valence e⁻, L=lone pair e⁻, B=bonding e⁻"},
+  {unit:"2",category:"Bonding",formula:"F = k(q₁q₂)/r²",notes:"Coulomb's Law — governs lattice energy and bond strength"},
+  {unit:"2",category:"Bonding",formula:"Bond Order = total bonding pairs ÷ bonding positions",notes:"Used for resonance structures (e.g. CO₃²⁻ = 4/3 = 1.33)"},
+  {unit:"3",category:"Intermolecular Forces",formula:"PV = nRT",notes:"Ideal Gas Law — R = 0.08206 L·atm/(mol·K) or 8.314 J/(mol·K)"},
+  {unit:"4",category:"Reactions & Stoichiometry",formula:"M₁V₁ = M₂V₂",notes:"Dilution equation — moles stay constant before/after dilution"},
+  {unit:"5",category:"Kinetics",formula:"Rate = k[A]ˣ[B]ʸ",notes:"x,y found experimentally — never read off balanced coefficients"},
+  {unit:"5",category:"Kinetics",formula:"k = A·e^(−Eₐ/RT)",notes:"Arrhenius equation — links rate constant to temperature and activation energy"},
+  {unit:"5",category:"Kinetics",formula:"t½ = 0.693/k",notes:"Half-life for FIRST-ORDER reactions only (constant, doesn't depend on [A]₀)"},
+  {unit:"6",category:"Thermodynamics",formula:"ΔG = ΔH − TΔS",notes:"Gibbs Free Energy — ΔG<0 means thermodynamically favored"},
+  {unit:"6",category:"Thermodynamics",formula:"ΔG° = −RT ln K",notes:"Links standard free energy to the equilibrium constant"},
+  {unit:"6",category:"Thermodynamics",formula:"q = mcΔT",notes:"Heat transfer — c = specific heat capacity"},
+  {unit:"7",category:"Equilibrium",formula:"K = [products]^coeff / [reactants]^coeff",notes:"Pure solids and liquids are excluded (activity = 1)"},
+  {unit:"7",category:"Equilibrium",formula:"Ksp = [cation]^x[anion]^y",notes:"Solubility product — for slightly soluble ionic compounds"},
+  {unit:"8",category:"Acids & Bases",formula:"pH = −log[H₃O⁺]",notes:"pH + pOH = 14.00 at 25°C"},
+  {unit:"8",category:"Acids & Bases",formula:"pH = pKa + log([base]/[acid])",notes:"Henderson-Hasselbalch equation for buffers"},
+  {unit:"8",category:"Acids & Bases",formula:"Kw = [H₃O⁺][OH⁻] = 1.0×10⁻¹⁴",notes:"Water's autoionization constant at 25°C"},
+  {unit:"9",category:"Electrochemistry",formula:"E°cell = E°(cathode) − E°(anode)",notes:"Both values used as reduction potentials"},
+  {unit:"9",category:"Electrochemistry",formula:"q = I × t",notes:"Charge (coulombs) = current (amps) × time (seconds)"},
+  {unit:"9",category:"Electrochemistry",formula:"moles e⁻ = q ÷ F",notes:"F = Faraday's constant = 96,485 C/mol e⁻"},
+];
+
 const MASTER_QB = [
   // 1.1 Moles & Molar Mass
   {id:"q1",topic:"1.1 · Moles & Molar Mass",difficulty:"easy",question:"What is the value of Avogadro's number?",opts:["6.022 × 10²¹","6.022 × 10²³","6.022 × 10²⁵","3.011 × 10²³"],ans:1,explain:"Avogadro's number is 6.022 × 10²³ particles per mole — the number of atoms in exactly 12g of carbon-12."},
@@ -583,6 +811,410 @@ function openUnit(id,name,full){
 }
 function openQB(){showScreen("qb-screen");showQBHome();}
 function closeQB(){showScreen("feed-screen");}
+
+// ── BROWSE CATEGORIES (Labs / Exceptions / Formulas) ──
+function openBrowseCategory(category){
+  showScreen("browse-screen");
+  const titleEl=document.getElementById("browse-title");
+  const bodyEl=document.getElementById("browse-body");
+
+  if(category==="labs"){
+    titleEl.textContent="🔬 Labs";
+    bodyEl.innerHTML=`<div class="browse-intro">Every lab simulation in ChemCrunch, in one place. Tap a unit to jump straight to that lab in the feed.</div>` +
+      LABS_INDEX.map(lab=>{
+        const unit=UNITS.find(u=>u.id===lab.unit);
+        return `<div class="browse-detail-card" onclick="openUnit('${lab.unit}','${unit?.name||''}','${(unit?.full||'').replace(/'/g,"\\'")}')">
+          <div class="browse-detail-icon" style="background:${unit?.color||'#0057FF'}22">🔬</div>
+          <div class="browse-detail-info">
+            <div class="browse-detail-subtopic">${lab.subtopic}</div>
+            <div class="browse-detail-title">${lab.title}</div>
+            <div class="browse-detail-desc">${lab.desc}</div>
+          </div>
+        </div>`;
+      }).join("");
+  }
+
+  if(category==="exceptions"){
+    titleEl.textContent="⚠️ AP Chem Exceptions";
+    bodyEl.innerHTML=`<div class="browse-intro">The patterns AP Chem teaches you to expect — and the specific cases where they break. These are classic AP exam traps.</div>` +
+      EXCEPTIONS_DATA.map(ex=>{
+        const unit=UNITS.find(u=>u.id===ex.unit);
+        return `<div class="exception-card">
+          <div class="exception-unit-tag" style="background:${unit?.color||'#0057FF'}22;color:${unit?.color||'#6BA3FF'}">${unit?.name||''}</div>
+          <div class="exception-title">${ex.title}</div>
+          <div class="exception-row"><span class="exception-label">Expected:</span> ${ex.rule}</div>
+          <div class="exception-row exception-actual"><span class="exception-label">Actually:</span> ${ex.exception}</div>
+          <div class="exception-why">💡 ${ex.why}</div>
+        </div>`;
+      }).join("");
+  }
+
+  if(category==="formulas"){
+    titleEl.textContent="📐 Formula Sheet";
+    const byCategory={};
+    FORMULAS_DATA.forEach(f=>{
+      if(!byCategory[f.category])byCategory[f.category]=[];
+      byCategory[f.category].push(f);
+    });
+    bodyEl.innerHTML=`<div class="browse-intro">Every formula across all 9 units, organized by topic. Bookmark this page for quick review before the exam.</div>` +
+      Object.entries(byCategory).map(([cat,formulas])=>`
+        <div class="formula-category-label">${cat}</div>
+        ${formulas.map(f=>`
+          <div class="formula-card">
+            <div class="formula-eq">${f.formula}</div>
+            <div class="formula-notes">${f.notes}</div>
+          </div>
+        `).join("")}
+      `).join("");
+  }
+}
+
+function closeBrowse(){showScreen("home");}
+
+// ── INTERACTIVE TOOLS ──
+function openTool(toolId){
+  showScreen("tool-screen");
+  const titleEl=document.getElementById("tool-title");
+  const bodyEl=document.getElementById("tool-body");
+  const renderers={
+    vsepr:{title:"🧬 VSEPR Models",render:renderVseprTool},
+    hybridization:{title:"⚛️ Hybridization Explorer",render:renderHybridTool},
+    titration:{title:"🧪 Titration Graphs",render:renderTitrationTool},
+    kinetics:{title:"📈 Kinetics Grapher",render:renderKineticsTool},
+    galvanic:{title:"🔋 Galvanic Cell",render:renderGalvanicTool},
+  };
+  const tool=renderers[toolId];
+  if(!tool)return;
+  titleEl.textContent=tool.title;
+  bodyEl.innerHTML="";
+  tool.render(bodyEl);
+}
+function closeTool(){showScreen("home");}
+
+// ── TOOL: VSEPR MODELS ──
+const VSEPR_SHAPES=[
+  {domains:2,lone:0,name:"Linear",angle:"180°",hyb:"sp",example:"CO₂",positions:[[0,-60],[0,60]]},
+  {domains:3,lone:0,name:"Trigonal Planar",angle:"120°",hyb:"sp²",example:"BF₃",positions:[[0,-65],[56,33],[-56,33]]},
+  {domains:3,lone:1,name:"Bent",angle:"<120°",hyb:"sp²",example:"SO₂",positions:[[0,-65],[56,33]],lonePos:[[-56,33]]},
+  {domains:4,lone:0,name:"Tetrahedral",angle:"109.5°",hyb:"sp³",example:"CH₄",positions:[[0,-65],[56,20],[-56,20],[0,55]]},
+  {domains:4,lone:1,name:"Trigonal Pyramidal",angle:"<109.5° (≈107°)",hyb:"sp³",example:"NH₃",positions:[[0,-65],[56,20],[-56,20]],lonePos:[[0,55]]},
+  {domains:4,lone:2,name:"Bent",angle:"≈104.5°",hyb:"sp³",example:"H₂O",positions:[[56,20],[-56,20]],lonePos:[[0,-65],[0,55]]},
+];
+
+function renderVseprTool(container){
+  let selectedIdx=0;
+  container.innerHTML=`
+    <div class="tool-intro">Tap a shape to see how electron domains and lone pairs determine molecular geometry. Yellow = bonding pair, gray = lone pair.</div>
+    <div class="vsepr-canvas-wrap">
+      <svg id="vsepr-svg" viewBox="-100 -100 200 200" style="width:100%;height:220px"></svg>
+    </div>
+    <div class="vsepr-info" id="vsepr-info"></div>
+    <div class="vsepr-shape-grid" id="vsepr-shape-grid"></div>
+  `;
+
+  const grid=container.querySelector("#vsepr-shape-grid");
+  grid.innerHTML=VSEPR_SHAPES.map((s,i)=>`
+    <button class="vsepr-shape-btn ${i===0?'active':''}" data-idx="${i}">${s.name}<br><span style="opacity:0.6;font-size:10px">${s.example}</span></button>
+  `).join("");
+
+  function draw(idx){
+    selectedIdx=idx;
+    const shape=VSEPR_SHAPES[idx];
+    const svg=container.querySelector("#vsepr-svg");
+    let elements=`<circle cx="0" cy="0" r="14" fill="#0057FF" opacity="0.9"/>`;
+    shape.positions.forEach(([x,y])=>{
+      elements+=`<line x1="0" y1="0" x2="${x}" y2="${y}" stroke="rgba(255,184,0,0.5)" stroke-width="3"/>`;
+      elements+=`<circle cx="${x}" cy="${y}" r="11" fill="#FFB800"/>`;
+    });
+    (shape.lonePos||[]).forEach(([x,y])=>{
+      elements+=`<circle cx="${x*0.55}" cy="${y*0.55}" r="9" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-dasharray="3,2"/>`;
+      elements+=`<circle cx="${x*0.55}" cy="${y*0.55}" r="5" fill="rgba(255,255,255,0.5)"/>`;
+    });
+    svg.innerHTML=elements;
+    container.querySelector("#vsepr-info").innerHTML=`
+      <div class="vsepr-info-row"><span class="vsepr-info-label">Molecular Geometry</span><span class="vsepr-info-val">${shape.name}</span></div>
+      <div class="vsepr-info-row"><span class="vsepr-info-label">Electron Domains</span><span class="vsepr-info-val">${shape.domains}</span></div>
+      <div class="vsepr-info-row"><span class="vsepr-info-label">Lone Pairs</span><span class="vsepr-info-val">${shape.lone}</span></div>
+      <div class="vsepr-info-row"><span class="vsepr-info-label">Bond Angle</span><span class="vsepr-info-val">${shape.angle}</span></div>
+      <div class="vsepr-info-row"><span class="vsepr-info-label">Hybridization</span><span class="vsepr-info-val">${shape.hyb}</span></div>
+      <div class="vsepr-info-row"><span class="vsepr-info-label">Example</span><span class="vsepr-info-val">${shape.example}</span></div>
+    `;
+    grid.querySelectorAll(".vsepr-shape-btn").forEach((b,i)=>b.classList.toggle("active",i===idx));
+  }
+
+  grid.querySelectorAll(".vsepr-shape-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>draw(parseInt(btn.dataset.idx)));
+  });
+  draw(0);
+}
+
+// ── TOOL: HYBRIDIZATION EXPLORER ──
+const HYBRID_DATA=[
+  {hyb:"sp",domains:2,orbitalMix:"1 s + 1 p",geometry:"Linear",angle:"180°",examples:["BeCl₂","CO₂ (each C=O)","HCN"],color:"#0057FF"},
+  {hyb:"sp²",domains:3,orbitalMix:"1 s + 2 p",geometry:"Trigonal Planar",angle:"120°",examples:["BF₃","C in C=C double bonds","CO₃²⁻ central C"],color:"#FFB800"},
+  {hyb:"sp³",domains:4,orbitalMix:"1 s + 3 p",geometry:"Tetrahedral / Pyramidal / Bent",angle:"109.5° (ideal)",examples:["CH₄ (tetrahedral)","NH₃ (pyramidal)","H₂O (bent)"],color:"#00D68F"},
+  {hyb:"sp³d",domains:5,orbitalMix:"1 s + 3 p + 1 d",geometry:"Trigonal Bipyramidal",angle:"90° / 120°",examples:["PCl₅","SF₄"],color:"#9B59FF"},
+  {hyb:"sp³d²",domains:6,orbitalMix:"1 s + 3 p + 2 d",geometry:"Octahedral",angle:"90°",examples:["SF₆","PCl₆⁻"],color:"#FF5A5A"},
+];
+
+function renderHybridTool(container){
+  container.innerHTML=`
+    <div class="tool-intro">Hybridization mixes atomic orbitals to match the number of electron domains. Tap each type to see which orbitals combine and what molecules use it.</div>
+    <div class="hybrid-tabs" id="hybrid-tabs"></div>
+    <div class="hybrid-display" id="hybrid-display"></div>
+  `;
+  const tabs=container.querySelector("#hybrid-tabs");
+  tabs.innerHTML=HYBRID_DATA.map((h,i)=>`<button class="hybrid-tab ${i===0?'active':''}" data-idx="${i}" style="${i===0?`border-color:${h.color};color:${h.color}`:''}">${h.hyb}</button>`).join("");
+
+  function draw(idx){
+    const h=HYBRID_DATA[idx];
+    tabs.querySelectorAll(".hybrid-tab").forEach((b,i)=>{
+      b.classList.toggle("active",i===idx);
+      b.style.borderColor=i===idx?h.color:"";
+      b.style.color=i===idx?h.color:"";
+    });
+    // Visual: orbital mixing diagram
+    const orbitalCount=h.domains;
+    let lobes="";
+    for(let i=0;i<orbitalCount;i++){
+      const angle=(i/orbitalCount)*Math.PI*2 - Math.PI/2;
+      const x=Math.cos(angle)*55, y=Math.sin(angle)*55;
+      lobes+=`<ellipse cx="${x}" cy="${y}" rx="22" ry="10" transform="rotate(${angle*180/Math.PI+90} ${x} ${y})" fill="${h.color}" opacity="0.75"/>`;
+      lobes+=`<line x1="0" y1="0" x2="${x}" y2="${y}" stroke="${h.color}" stroke-width="2" opacity="0.4"/>`;
+    }
+    container.querySelector("#hybrid-display").innerHTML=`
+      <svg viewBox="-90 -90 180 180" style="width:100%;height:180px">
+        <circle cx="0" cy="0" r="12" fill="${h.color}"/>
+        ${lobes}
+      </svg>
+      <div class="hybrid-info-row"><span class="hybrid-info-label">Orbitals mixed</span><span class="hybrid-info-val">${h.orbitalMix}</span></div>
+      <div class="hybrid-info-row"><span class="hybrid-info-label">Electron domains</span><span class="hybrid-info-val">${h.domains}</span></div>
+      <div class="hybrid-info-row"><span class="hybrid-info-label">Base geometry</span><span class="hybrid-info-val">${h.geometry}</span></div>
+      <div class="hybrid-info-row"><span class="hybrid-info-label">Bond angle</span><span class="hybrid-info-val">${h.angle}</span></div>
+      <div class="hybrid-examples-label">Example molecules</div>
+      <div class="hybrid-examples">${h.examples.map(e=>`<span class="hybrid-example-chip" style="background:${h.color}22;color:${h.color}">${e}</span>`).join("")}</div>
+    `;
+  }
+  tabs.querySelectorAll(".hybrid-tab").forEach(btn=>btn.addEventListener("click",()=>draw(parseInt(btn.dataset.idx))));
+  draw(0);
+}
+
+// ── TOOL: TITRATION GRAPHS (interactive slider) ──
+function renderTitrationTool(container){
+  // Simulate titrating 25 mL of 0.100 M weak acid (Ka=1.8e-5, like acetic acid) with 0.100 M strong base
+  const Ka=1.8e-5, Va=25, Ma=0.100, Mb=0.100;
+  const Veq=(Ma*Va)/Mb; // mL of base needed to reach equivalence
+
+  function calcPH(Vb){
+    if(Vb<=0) {
+      // pure weak acid
+      const x=Math.sqrt(Ka*Ma);
+      return -Math.log10(x);
+    }
+    const molesAcid=Ma*Va/1000, molesBase=Mb*Vb/1000;
+    const totalVol=(Va+Vb)/1000;
+    if(Vb<Veq){
+      // buffer region: Henderson-Hasselbalch
+      const molesHA=molesAcid-molesBase, molesA=molesBase;
+      if(molesHA<=0) return 7;
+      const pKa=-Math.log10(Ka);
+      return pKa+Math.log10(molesA/molesHA);
+    }
+    if(Math.abs(Vb-Veq)<0.05){
+      // equivalence point: weak acid conj base hydrolyzes, pH > 7
+      return 8.7;
+    }
+    // past equivalence: excess strong base dominates
+    const excessBase=(molesBase-molesAcid)/totalVol;
+    const pOH=-Math.log10(excessBase);
+    return 14-pOH;
+  }
+
+  container.innerHTML=`
+    <div class="tool-intro">Titrating 25 mL of 0.100 M weak acid (Ka = 1.8×10⁻⁵) with 0.100 M strong base. Drag the slider to add base and watch the pH curve build in real time.</div>
+    <div class="titration-graph-wrap">
+      <svg id="titration-svg" viewBox="0 0 300 200" style="width:100%;height:200px;background:var(--bg2);border-radius:12px"></svg>
+    </div>
+    <div class="titration-readout">
+      <div class="titration-readout-item"><span class="titration-readout-label">Base added</span><span class="titration-readout-val" id="tit-vol">0.0 mL</span></div>
+      <div class="titration-readout-item"><span class="titration-readout-label">Current pH</span><span class="titration-readout-val" id="tit-ph">2.87</span></div>
+      <div class="titration-readout-item"><span class="titration-readout-label">Zone</span><span class="titration-readout-val" id="tit-zone">Initial acid</span></div>
+    </div>
+    <input type="range" id="tit-slider" min="0" max="${Veq*2}" step="0.5" value="0" class="titration-slider">
+    <div class="titration-legend">
+      <span class="titration-legend-item"><span class="titration-dot" style="background:#00D68F"></span>Buffer region</span>
+      <span class="titration-legend-item"><span class="titration-dot" style="background:#FF5A5A"></span>Equivalence point</span>
+    </div>
+  `;
+
+  const svg=container.querySelector("#titration-svg");
+  const slider=container.querySelector("#tit-slider");
+  const maxVol=Veq*2;
+
+  // Pre-compute full curve for the background line
+  let curvePoints=[];
+  for(let v=0;v<=maxVol;v+=0.5){
+    const ph=calcPH(v);
+    curvePoints.push([v,ph]);
+  }
+  const toSvgX=v=>10+(v/maxVol)*280;
+  const toSvgY=ph=>190-(ph/14)*180;
+
+  function drawCurve(currentVol){
+    const pathD=curvePoints.map(([v,ph],i)=>`${i===0?'M':'L'} ${toSvgX(v)} ${toSvgY(ph)}`).join(" ");
+    const currentPh=calcPH(currentVol);
+    const eqX=toSvgX(Veq);
+    svg.innerHTML=`
+      <line x1="10" y1="190" x2="290" y2="190" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <line x1="10" y1="10" x2="10" y2="190" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <line x1="${eqX}" y1="10" x2="${eqX}" y2="190" stroke="rgba(255,90,90,0.4)" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <path d="${pathD}" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+      <circle cx="${toSvgX(currentVol)}" cy="${toSvgY(currentPh)}" r="5" fill="#FFB800" stroke="#fff" stroke-width="1.5"/>
+      <text x="10" y="8" font-size="9" fill="rgba(255,255,255,0.4)">pH 14</text>
+      <text x="10" y="198" font-size="9" fill="rgba(255,255,255,0.4)">pH 0</text>
+      <text x="${eqX-8}" y="198" font-size="8" fill="rgba(255,90,90,0.7)">Veq</text>
+    `;
+  }
+
+  function update(){
+    const vol=parseFloat(slider.value);
+    const ph=calcPH(vol);
+    container.querySelector("#tit-vol").textContent=vol.toFixed(1)+" mL";
+    container.querySelector("#tit-ph").textContent=ph.toFixed(2);
+    let zone="Initial acid";
+    if(vol>0 && vol<Veq*0.9) zone="Buffer region";
+    else if(Math.abs(vol-Veq)<Veq*0.1) zone="Near equivalence";
+    else if(vol>=Veq*1.1) zone="Excess base";
+    container.querySelector("#tit-zone").textContent=zone;
+    drawCurve(vol);
+  }
+
+  slider.addEventListener("input",update);
+  update();
+}
+
+// ── TOOL: KINETICS GRAPHER ──
+function renderKineticsTool(container){
+  const orders=[
+    {order:"Zero",k:0.020,A0:1.00,yLabel:"[A]",desc:"[A] vs time is a straight line with slope = −k",halfLife:"t½ = [A]₀/2k (depends on [A]₀)"},
+    {order:"First",k:0.050,A0:1.00,yLabel:"ln[A]",desc:"ln[A] vs time is a straight line with slope = −k",halfLife:"t½ = 0.693/k (constant!)"},
+    {order:"Second",k:0.080,A0:1.00,yLabel:"1/[A]",desc:"1/[A] vs time is a straight line with slope = +k",halfLife:"t½ = 1/(k[A]₀) (depends on [A]₀)"},
+  ];
+  let currentOrder=1; // default to First order
+
+  container.innerHTML=`
+    <div class="tool-intro">Each reaction order has exactly one plot that turns curved concentration data into a straight line. Switch orders to see which transform works.</div>
+    <div class="hybrid-tabs" id="kinetics-tabs"></div>
+    <svg id="kinetics-svg" viewBox="0 0 300 200" style="width:100%;height:200px;background:var(--bg2);border-radius:12px;margin-top:12px"></svg>
+    <div class="hybrid-info-row"><span class="hybrid-info-label">Straight-line plot</span><span class="hybrid-info-val" id="kin-ylabel">ln[A] vs t</span></div>
+    <div class="hybrid-info-row"><span class="hybrid-info-label">Half-life formula</span><span class="hybrid-info-val" id="kin-halflife">t½ = 0.693/k</span></div>
+    <div class="kinetics-desc" id="kin-desc"></div>
+  `;
+
+  const tabs=container.querySelector("#kinetics-tabs");
+  tabs.innerHTML=orders.map((o,i)=>`<button class="hybrid-tab ${i===1?'active':''}" data-idx="${i}">${o.order} order</button>`).join("");
+
+  function draw(idx){
+    currentOrder=idx;
+    const o=orders[idx];
+    tabs.querySelectorAll(".hybrid-tab").forEach((b,i)=>b.classList.toggle("active",i===idx));
+
+    // Generate transformed data points (these always come out linear for the correct order)
+    let points=[];
+    for(let t=0;t<=40;t+=2){
+      let A;
+      if(idx===0) A=o.A0-o.k*t; // zero order: [A] = [A]0 - kt
+      if(idx===1) A=o.A0*Math.exp(-o.k*t); // first order: [A] = [A]0 e^-kt
+      if(idx===2) A=1/((1/o.A0)+o.k*t); // second order: 1/[A] = 1/[A]0 + kt
+      if(A<=0)continue;
+      let yVal;
+      if(idx===0) yVal=A;
+      if(idx===1) yVal=Math.log(A);
+      if(idx===2) yVal=1/A;
+      points.push([t,yVal]);
+    }
+    const xs=points.map(p=>p[0]), ys=points.map(p=>p[1]);
+    const minY=Math.min(...ys), maxY=Math.max(...ys);
+    const toX=t=>20+(t/40)*260;
+    const toY=y=>180-((y-minY)/(maxY-minY||1))*160;
+
+    const pathD=points.map(([t,y],i)=>`${i===0?'M':'L'} ${toX(t)} ${toY(y)}`).join(" ");
+    const dotsHtml=points.filter((_,i)=>i%3===0).map(([t,y])=>`<circle cx="${toX(t)}" cy="${toY(y)}" r="3" fill="#00D68F"/>`).join("");
+
+    container.querySelector("#kinetics-svg").innerHTML=`
+      <line x1="20" y1="180" x2="280" y2="180" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <line x1="20" y1="20" x2="20" y2="180" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <path d="${pathD}" fill="none" stroke="#3B82F6" stroke-width="2"/>
+      ${dotsHtml}
+      <text x="20" y="195" font-size="9" fill="rgba(255,255,255,0.4)">time →</text>
+      <text x="2" y="20" font-size="9" fill="rgba(255,255,255,0.4)">${o.yLabel}</text>
+    `;
+    container.querySelector("#kin-ylabel").textContent=`${o.yLabel} vs t`;
+    container.querySelector("#kin-halflife").textContent=o.halfLife;
+    container.querySelector("#kin-desc").textContent=o.desc;
+  }
+
+  tabs.querySelectorAll(".hybrid-tab").forEach(btn=>btn.addEventListener("click",()=>draw(parseInt(btn.dataset.idx))));
+  draw(1);
+}
+
+// ── TOOL: GALVANIC CELL DIAGRAM ──
+const GALVANIC_PARTS={
+  anode:{label:"Anode (Zn)",desc:"Oxidation happens here: Zn(s) → Zn²⁺(aq) + 2e⁻. The zinc electrode loses mass as it dissolves into the solution.",color:"#00B4D8"},
+  cathode:{label:"Cathode (Cu)",desc:"Reduction happens here: Cu²⁺(aq) + 2e⁻ → Cu(s). The copper electrode gains mass as new copper metal plates onto it.",color:"#FFB800"},
+  wire:{label:"External Wire",desc:"Electrons flow through here from anode to cathode — this flow of electrons is literally the electric current the cell generates.",color:"#6BA3FF"},
+  bridge:{label:"Salt Bridge",desc:"Allows ions to migrate between half-cells, keeping both sides electrically neutral. Without it, charge would build up and the reaction would stop almost instantly.",color:"#9B59FF"},
+  anodeSolution:{label:"Zn²⁺ Solution",desc:"As Zn atoms oxidize, Zn²⁺ ions accumulate here. The salt bridge sends anions in to balance this growing positive charge.",color:"#00B4D8"},
+  cathodeSolution:{label:"Cu²⁺ Solution",desc:"Cu²⁺ ions are consumed here as they're reduced to solid copper. The salt bridge sends cations in to replace the lost positive charge.",color:"#FFB800"},
+};
+
+function renderGalvanicTool(container){
+  container.innerHTML=`
+    <div class="tool-intro">Tap any part of the cell to learn what's happening there. This is the classic Zn/Cu galvanic cell — E°cell = +1.10 V.</div>
+    <svg id="galvanic-svg" viewBox="0 0 300 220" style="width:100%;height:240px;background:var(--bg2);border-radius:12px"></svg>
+    <div class="galvanic-info" id="galvanic-info">
+      <div class="galvanic-info-title">Tap a part of the diagram above</div>
+      <div class="galvanic-info-desc">Explore the anode, cathode, wire, salt bridge, and both solutions to see what's happening at each part of the cell.</div>
+    </div>
+  `;
+
+  const svg=container.querySelector("#galvanic-svg");
+  svg.innerHTML=`
+    <!-- Wire across top -->
+    <path data-part="wire" class="galvanic-part" d="M 70 30 L 70 15 L 230 15 L 230 30" fill="none" stroke="#6BA3FF" stroke-width="3" stroke-linecap="round"/>
+    <circle data-part="wire" class="galvanic-part" cx="150" cy="15" r="9" fill="none" stroke="#6BA3FF" stroke-width="2"/>
+    <text x="142" y="11" font-size="9" fill="#6BA3FF">A</text>
+
+    <!-- Anode beaker (left) -->
+    <path d="M 30 50 L 30 170 L 110 170 L 110 50" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <rect data-part="anodeSolution" class="galvanic-part" x="31" y="100" width="78" height="69" fill="#00B4D8" opacity="0.12"/>
+    <rect data-part="anode" class="galvanic-part" x="65" y="30" width="10" height="80" fill="#00B4D8"/>
+    <text x="50" y="190" font-size="10" fill="rgba(255,255,255,0.5)">Zn / Zn²⁺</text>
+
+    <!-- Cathode beaker (right) -->
+    <path d="M 190 50 L 190 170 L 270 170 L 270 50" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <rect data-part="cathodeSolution" class="galvanic-part" x="191" y="100" width="78" height="69" fill="#FFB800" opacity="0.12"/>
+    <rect data-part="cathode" class="galvanic-part" x="225" y="30" width="10" height="80" fill="#FFB800"/>
+    <text x="212" y="190" font-size="10" fill="rgba(255,255,255,0.5)">Cu / Cu²⁺</text>
+
+    <!-- Salt bridge -->
+    <path data-part="bridge" class="galvanic-part" d="M 110 95 L 190 95" stroke="rgba(255,255,255,0.4)" stroke-width="10" stroke-linecap="round"/>
+    <text x="120" y="88" font-size="9" fill="rgba(255,255,255,0.6)">salt bridge</text>
+  `;
+
+  svg.querySelectorAll(".galvanic-part").forEach(el=>{
+    el.style.cursor="pointer";
+    el.addEventListener("click",()=>{
+      const partKey=el.dataset.part;
+      const part=GALVANIC_PARTS[partKey];
+      if(!part)return;
+      container.querySelector("#galvanic-info").innerHTML=`
+        <div class="galvanic-info-title" style="color:${part.color}">${part.label}</div>
+        <div class="galvanic-info-desc">${part.desc}</div>
+      `;
+    });
+  });
+}
 
 // ── SEED CARDS ──
 function buildSeedCards(unitId){
@@ -1281,6 +1913,7 @@ function openComments(cardId,title,subtopic){
   activeCommentContext={title,subtopic};
   document.getElementById("comment-sheet-title").textContent=`🤖 Ask AI · ${title}`;
   renderCommentList(cardId);
+  updateAskAiCounter();
   document.getElementById("comment-sheet").classList.add("open");
   document.getElementById("comment-overlay").classList.add("on");
   setTimeout(()=>document.getElementById("comment-input")?.focus(),300);
@@ -1318,6 +1951,21 @@ async function postComment(){
   const input=document.getElementById("comment-input");
   const text=input.value.trim();
   if(!text||activeCommentCardId===null)return;
+
+  // Check daily quota before spending it
+  const remaining=getAskAiRemaining();
+  if(remaining<=0){
+    const list=document.getElementById("comment-list");
+    const quotaMsg=document.createElement("div");
+    quotaMsg.className="comment-item";
+    quotaMsg.style.background="rgba(255,184,0,0.1)";
+    quotaMsg.style.borderColor="rgba(255,184,0,0.3)";
+    quotaMsg.innerHTML=`<div class="comment-author" style="color:#FFD060">⏳ Daily limit reached</div><div class="comment-text">You've used all ${ASK_AI_DAILY_LIMIT} AI questions for today. Your limit resets tomorrow — in the meantime, try the lesson's Read More or the Question Bank!</div>`;
+    list.appendChild(quotaMsg);
+    list.scrollTop=list.scrollHeight;
+    return;
+  }
+
   const cardId=activeCommentCardId;
   const thread=comments.get(cardId)||[];
 
@@ -1345,21 +1993,36 @@ async function postComment(){
         prompt:`Topic: "${ctx.title||''}" (${ctx.subtopic||'AP Chemistry'}).\\nStudent's question: ${text}`
       })
     });
+    if(res.status===429){
+      geminiExhausted=true; // also stops Generate Card from hammering a dead quota
+      throw new Error("quota");
+    }
     if(!res.ok)throw new Error("unavailable");
     const data=await res.json();
     const answer=(data.text||"Sorry, I couldn't generate an answer right now — try rephrasing your question.").trim();
     // Remove loading, add real answer
     const idx=thread.findIndex(c=>c.role==="loading"&&c.id===loadingId);
     if(idx!==-1)thread.splice(idx,1,{role:"ai",text:answer});
+    incrementAskAiUsage();
+    updateAskAiCounter();
   }catch(e){
     const idx=thread.findIndex(c=>c.role==="loading"&&c.id===loadingId);
-    if(idx!==-1)thread.splice(idx,1,{role:"ai",text:"I'm having trouble connecting right now. Try again in a moment!"});
+    const msg = e.message==="quota"
+      ? "ChemCrunch has hit its shared daily AI limit (this resets tomorrow). Sorry about that! Try the lesson's Read More or the Question Bank in the meantime."
+      : "I'm having trouble connecting right now. Try again in a moment!";
+    if(idx!==-1)thread.splice(idx,1,{role:"ai",text:msg});
   }
   comments.set(cardId,thread);
   renderCommentList(cardId);
   input.disabled=false;
   if(sendBtn){sendBtn.disabled=false;sendBtn.textContent="Ask";}
   input.focus();
+}
+
+function updateAskAiCounter(){
+  const remaining=getAskAiRemaining();
+  const counterEl=document.getElementById("askai-quota-label");
+  if(counterEl)counterEl.textContent=`${remaining} question${remaining===1?'':'s'} left today`;
 }
 
 // ── LAB ANIMATION ──
@@ -1743,9 +2406,35 @@ function showBankToast(){
   setTimeout(()=>{toast.style.transition="opacity 0.4s";toast.style.opacity="0";setTimeout(()=>toast.remove(),400);},2600);
 }
 
+// Generate Card gets a soft daily cap on live Gemini calls (per device) so the
+// shared 1,500/day Gemini quota doesn't get drained before students can use Ask AI.
+// Once a device hits this, Generate Card quietly switches to the question bank —
+// the button keeps working, it just stops spending shared AI quota.
+const GENERATE_CARD_DAILY_AI_CAP = 15;
+
+function getGenerateCardUsage(){
+  const today = new Date().toDateString();
+  const stored = JSON.parse(localStorage.getItem("chemcrunch_gencard_usage")||"{}");
+  if(stored.date !== today) return {date:today, count:0};
+  return stored;
+}
+
+function incrementGenerateCardUsage(){
+  const usage = getGenerateCardUsage();
+  usage.count++;
+  localStorage.setItem("chemcrunch_gencard_usage", JSON.stringify(usage));
+  return usage.count;
+}
+
 async function generateCard(silent=false){
   // If Gemini's quota was already hit this session, go straight to the bank.
   if(geminiExhausted){const fb=getFallbackCard();appendCard(fb);return;}
+
+  // If this device has already used its daily share of live AI generations,
+  // go straight to the bank too — reserves the shared quota for Ask AI.
+  if(getGenerateCardUsage().count>=GENERATE_CARD_DAILY_AI_CAP){
+    const fb=getFallbackCard();appendCard(fb);return;
+  }
 
   if(!silent){document.getElementById("gen-loader").classList.add("on");document.getElementById("gen-loader-text").textContent="Generating card…";}
   const types=["lesson","analogy","practice","challenge"];
@@ -1767,6 +2456,7 @@ async function generateCard(silent=false){
     if(!text)throw new Error("empty");
     const parsed=JSON.parse(text.replace(/```json|```/g,"").trim());
     appendCard({...parsed,id:Date.now(),_source:"gemini"});
+    incrementGenerateCardUsage();
   }catch(e){
     // Any failure (quota, network, bad JSON) → fall back to the pooled bank.
     const fb=getFallbackCard();
@@ -1981,8 +2671,71 @@ function showStreakToast(streak){
   setTimeout(()=>{toast.style.opacity="0";toast.style.transition="opacity 0.4s";setTimeout(()=>toast.remove(),400);},3000);
 }
 
+// ── UNIQUE USER COUNTER ──
+function getDeviceId(){
+  let id = localStorage.getItem("chemcrunch_device_id");
+  if(!id){
+    id = "u_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2,10);
+    localStorage.setItem("chemcrunch_device_id", id);
+  }
+  return id;
+}
+
+async function trackUser(){
+  const deviceId = getDeviceId();
+  const alreadyCounted = localStorage.getItem("chemcrunch_counted") === deviceId;
+  try{
+    if(!alreadyCounted){
+      // First time this device has opened the app — increment the shared counter
+      const res = await fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"visit",deviceId})});
+      const data = await res.json();
+      if(data.count!==null && data.count!==undefined){
+        localStorage.setItem("chemcrunch_counted", deviceId);
+        updateUserCountDisplay(data.count);
+      }
+    } else {
+      // Already counted — just fetch the current total to display
+      const res = await fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"get"})});
+      const data = await res.json();
+      if(data.count!==null && data.count!==undefined) updateUserCountDisplay(data.count);
+    }
+  }catch(e){
+    // Fail silently — counter is a nice-to-have, never block the app
+  }
+}
+
+function updateUserCountDisplay(count){
+  const el = document.getElementById("user-count-display");
+  if(el) el.textContent = count.toLocaleString();
+  const missionEl = document.getElementById("mission-student-count");
+  if(missionEl) missionEl.textContent = count.toLocaleString()+"+";
+}
+
+// ── ASK AI DAILY QUOTA (10 questions per user per day) ──
+const ASK_AI_DAILY_LIMIT = 10;
+
+function getAskAiUsage(){
+  const today = new Date().toDateString();
+  const stored = JSON.parse(localStorage.getItem("chemcrunch_askai_usage")||"{}");
+  if(stored.date !== today) return {date:today, count:0};
+  return stored;
+}
+
+function incrementAskAiUsage(){
+  const usage = getAskAiUsage();
+  usage.count++;
+  localStorage.setItem("chemcrunch_askai_usage", JSON.stringify(usage));
+  return usage.count;
+}
+
+function getAskAiRemaining(){
+  const usage = getAskAiUsage();
+  return Math.max(0, ASK_AI_DAILY_LIMIT - usage.count);
+}
+
 renderHome();
 initStreak();
+trackUser();
 </script>
 </body>
 </html>
