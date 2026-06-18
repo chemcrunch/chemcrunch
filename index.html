@@ -139,6 +139,17 @@
     .titration-readout-label{font-size:9px;color:var(--text3);display:block;margin-bottom:4px}
     .titration-readout-val{font-size:14px;font-weight:800;color:var(--text1)}
     .titration-slider{width:100%;margin:8px 0 14px;accent-color:var(--blue)}
+
+    /* LAB DETAIL PAGE */
+    .lab-detail-intro{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+    .lab-detail-canvas-wrap{border-radius:var(--radius-lg);overflow:hidden;margin-bottom:14px;background:#001218}
+    .lab-detail-canvas-wrap canvas{display:block;width:100%;height:auto}
+    .lab-detail-stage-label{font-size:16px;font-weight:800;color:var(--text1);margin-bottom:6px;text-align:center}
+    .lab-detail-stage-pills{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px}
+    .lab-detail-stage-pills::-webkit-scrollbar{display:none}
+    .lab-stage-pill{flex-shrink:0;font-size:11px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--bg3);border:1px solid var(--border2);color:var(--text3);cursor:pointer;transition:all 0.15s}
+    .lab-stage-pill.active{background:rgba(0,87,255,0.15);border-color:var(--blue);color:#6BA3FF}
+    .lab-detail-desc{font-size:13px;color:var(--text2);line-height:1.7;padding:14px;background:var(--bg3);border-radius:var(--radius-lg);border:1px solid var(--border2)}
     .titration-legend{display:flex;gap:16px;justify-content:center}
     .titration-legend-item{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
     .titration-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
@@ -475,6 +486,15 @@
     <div class="qb-body" id="tool-body"></div>
   </div>
 
+  <!-- LAB DETAIL (slider-driven walkthrough) -->
+  <div class="screen hidden-right" id="lab-detail-screen">
+    <div class="qb-topbar">
+      <button class="qb-back" onclick="closeLabDetail()"><span style="font-size:18px">←</span></button>
+      <div class="qb-topbar-title" id="lab-detail-title">Lab</div>
+    </div>
+    <div class="qb-body" id="lab-detail-body"></div>
+  </div>
+
   <!-- FEED -->
   <div class="screen hidden-right" id="feed-screen">
     <div class="feed-topbar">
@@ -606,12 +626,12 @@ const UNITS=[
 // ── MASTER QUESTION BANK (100+ Unit 1 questions from PDF) ──
 // ── BROWSE: LABS INDEX (pulls real lab cards by reference) ──
 const LABS_INDEX=[
-  {unit:"1",subtopic:"1.2 · Mass Spectroscopy",title:"Inside a mass spectrometer",anim:"massSpec",desc:"Watch ions get fired, accelerated, and deflected by mass — heavier ions barely curve at all."},
-  {unit:"1",subtopic:"1.3 · Gravimetric Analysis",title:"Gravimetric Analysis",anim:"precipitation",desc:"How chemists measure what they can't see directly — by weighing a precipitate."},
-  {unit:"5",subtopic:"5.1 · Collision Theory",title:"Watching molecular collisions in real time",anim:"kinetics",desc:"Faster particles collide more often AND harder — see why heat speeds up reactions."},
-  {unit:"7",subtopic:"7.1 · Dynamic Equilibrium",title:"Watching a reaction reach equilibrium",anim:"equilibrium",desc:"Molecules constantly convert back and forth — equilibrium is a moving balance."},
-  {unit:"8",subtopic:"8.9 · Titration",title:"Running an acid-base titration",anim:"titration",desc:"Watch base drip into acid until the indicator flashes pink at the endpoint."},
-  {unit:"9",subtopic:"9.7 · Galvanic Cells",title:"Watching electrons flow in a galvanic cell",anim:"electrochem",desc:"Zinc oxidizes at the anode, electrons travel through the wire, copper is reduced at the cathode."},
+  {labId:"massSpec",unit:"1",subtopic:"1.2 · Mass Spectroscopy",title:"Inside a mass spectrometer",anim:"massSpec",desc:"Watch ions get fired, accelerated, and deflected by mass — heavier ions barely curve at all."},
+  {labId:"gravimetric",unit:"1",subtopic:"1.3 · Gravimetric Analysis",title:"Gravimetric Analysis",anim:"precipitation",desc:"How chemists measure what they can't see directly — by weighing a precipitate."},
+  {labId:"kinetics",unit:"5",subtopic:"5.1 · Collision Theory",title:"Watching molecular collisions in real time",anim:"kinetics",desc:"Faster particles collide more often AND harder — see why heat speeds up reactions."},
+  {labId:"equilibrium",unit:"7",subtopic:"7.1 · Dynamic Equilibrium",title:"Watching a reaction reach equilibrium",anim:"equilibrium",desc:"Molecules constantly convert back and forth — equilibrium is a moving balance."},
+  {labId:"titration",unit:"8",subtopic:"8.9 · Titration",title:"Running an acid-base titration",anim:"titration",desc:"Watch base drip into acid until the indicator flashes pink at the endpoint."},
+  {labId:"electrochem",unit:"9",subtopic:"9.7 · Galvanic Cells",title:"Watching electrons flow in a galvanic cell",anim:"electrochem",desc:"Zinc oxidizes at the anode, electrons travel through the wire, copper is reduced at the cathode."},
 ];
 
 // ── BROWSE: AP CHEM EXCEPTIONS ──
@@ -820,10 +840,10 @@ function openBrowseCategory(category){
 
   if(category==="labs"){
     titleEl.textContent="🔬 Labs";
-    bodyEl.innerHTML=`<div class="browse-intro">Every lab simulation in ChemCrunch, in one place. Tap a unit to jump straight to that lab in the feed.</div>` +
+    bodyEl.innerHTML=`<div class="browse-intro">Every lab in ChemCrunch, broken into stages you can step through at your own pace. Tap a lab to explore it.</div>` +
       LABS_INDEX.map(lab=>{
         const unit=UNITS.find(u=>u.id===lab.unit);
-        return `<div class="browse-detail-card" onclick="openUnit('${lab.unit}','${unit?.name||''}','${(unit?.full||'').replace(/'/g,"\\'")}')">
+        return `<div class="browse-detail-card" onclick="openLabDetail('${lab.labId}')">
           <div class="browse-detail-icon" style="background:${unit?.color||'#0057FF'}22">🔬</div>
           <div class="browse-detail-info">
             <div class="browse-detail-subtopic">${lab.subtopic}</div>
@@ -870,6 +890,173 @@ function openBrowseCategory(category){
 }
 
 function closeBrowse(){showScreen("home");}
+
+// ── LAB DETAIL PAGES (slider-driven, stage-by-stage walkthrough) ──
+// Fact-checked against documented AP Chem / analytical chemistry procedure.
+const LAB_DETAILS={
+  gravimetric:{
+    title:"Gravimetric Analysis",
+    subtitle:"Determining % Cl⁻ by precipitating AgCl",
+    anim:"precipitation",
+    stages:[
+      {label:"Dissolve",progress:0,desc:"The unknown salt sample dissolves completely in distilled water. NaCl dissociates into free Na⁺ and Cl⁻ ions floating in solution — right now there's nothing to weigh, since the chloride is invisible, dissolved among billions of water molecules."},
+      {label:"Precipitate",progress:0.25,desc:"Excess AgNO₃ is added. Ag⁺ and Cl⁻ combine instantly: Ag⁺(aq) + Cl⁻(aq) → AgCl(s). Using excess AgNO₃ — more than the stoichiometric minimum — guarantees every last Cl⁻ ion reacts, none stays behind in solution."},
+      {label:"Filter",progress:0.45,desc:"The solution is poured through filter paper (or a filtering crucible). The solid white AgCl precipitate is trapped on the filter while the remaining liquid — water, excess Ag⁺, and the NO₃⁻ spectator ions — passes through."},
+      {label:"Wash",progress:0.65,desc:"The trapped precipitate is rinsed, usually with a dilute acid solution rather than plain water, to remove soluble impurities and leftover excess AgNO₃ without letting the AgCl itself redissolve or break apart into a colloid."},
+      {label:"Dry",progress:0.85,desc:"The washed precipitate is dried and weighed, then dried and weighed again, repeating until the mass stops changing. This 'constant mass' confirms every trace of water is gone — a still-damp precipitate would weigh more than it should and throw off the whole calculation."},
+      {label:"Calculate",progress:1.0,desc:"Using the final AgCl mass and its molar mass, the moles of Cl⁻ originally present are calculated by stoichiometry (1:1 ratio), then converted back to a mass of chloride and divided by the original sample mass to get percent composition."},
+    ],
+  },
+};
+
+function openLabDetail(labId){
+  const lab=LAB_DETAILS[labId];
+  if(!lab)return;
+  showScreen("lab-detail-screen");
+  document.getElementById("lab-detail-title").textContent=lab.title;
+
+  const body=document.getElementById("lab-detail-body");
+  body.innerHTML=`
+    <div class="lab-detail-intro">${lab.subtitle}</div>
+    <div class="lab-detail-canvas-wrap">
+      <canvas id="lab-detail-canvas" width="700" height="440"></canvas>
+    </div>
+    <div class="lab-detail-stage-label" id="lab-detail-stage-label">${lab.stages[0].label}</div>
+    <input type="range" id="lab-detail-slider" min="0" max="${lab.stages.length-1}" step="1" value="0" class="titration-slider">
+    <div class="lab-detail-stage-pills" id="lab-detail-pills"></div>
+    <div class="lab-detail-desc" id="lab-detail-desc">${lab.stages[0].desc}</div>
+  `;
+
+  const pillsEl=document.getElementById("lab-detail-pills");
+  pillsEl.innerHTML=lab.stages.map((s,i)=>`<span class="lab-stage-pill ${i===0?'active':''}" data-idx="${i}">${s.label}</span>`).join("");
+
+  const slider=document.getElementById("lab-detail-slider");
+  const canvas=document.getElementById("lab-detail-canvas");
+
+  function renderStage(idx){
+    const stage=lab.stages[idx];
+    document.getElementById("lab-detail-stage-label").textContent=stage.label;
+    document.getElementById("lab-detail-desc").textContent=stage.desc;
+    pillsEl.querySelectorAll(".lab-stage-pill").forEach((p,i)=>p.classList.toggle("active",i===idx));
+    slider.value=idx;
+    drawLabStage(canvas,lab.anim,stage.progress);
+  }
+
+  slider.addEventListener("input",()=>renderStage(parseInt(slider.value)));
+  pillsEl.querySelectorAll(".lab-stage-pill").forEach(p=>{
+    p.addEventListener("click",()=>renderStage(parseInt(p.dataset.idx)));
+  });
+
+  renderStage(0);
+}
+
+function closeLabDetail(){showScreen("browse-screen");openBrowseCategory("labs");}
+
+// Draws a single realistic snapshot of a lab at a given progress (0 to 1),
+// instead of a continuous loop — driven by the stage slider above.
+function drawLabStage(canvas,animType,progress){
+  const dpr=window.devicePixelRatio||1;
+  const W=350,H=220;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  canvas.style.width="100%";canvas.style.height="auto";
+  const ctx=canvas.getContext("2d");
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#001218";ctx.fillRect(0,0,W,H);
+
+  function roundRect(x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+  }
+
+  if(animType==="precipitation"){
+    // Stage thresholds match the 6-stage data: dissolve(0) precipitate(.25) filter(.45) wash(.65) dry(.85) calculate(1)
+    const flaskX=175, flaskTop=70, flaskWidth=110;
+
+    // beaker/flask outline (conical, Erlenmeyer style)
+    ctx.strokeStyle="rgba(200,215,240,0.6)";ctx.lineWidth=1.6;
+    ctx.beginPath();
+    ctx.moveTo(flaskX-12,flaskTop);
+    ctx.lineTo(flaskX-12,flaskTop+18);
+    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+95);
+    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+98);
+    ctx.quadraticCurveTo(flaskX,flaskTop+112,flaskX+flaskWidth/2,flaskTop+98);
+    ctx.lineTo(flaskX+flaskWidth/2,flaskTop+95);
+    ctx.lineTo(flaskX+12,flaskTop+18);
+    ctx.lineTo(flaskX+12,flaskTop);
+    ctx.stroke();
+
+    // glass shine
+    ctx.strokeStyle="rgba(255,255,255,0.12)";ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(flaskX-8,flaskTop+20);ctx.lineTo(flaskX-flaskWidth/2+10,flaskTop+88);ctx.stroke();
+
+    // liquid + precipitate inside (clipped to flask interior)
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(flaskX-12,flaskTop+35);
+    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+95);
+    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+98);
+    ctx.quadraticCurveTo(flaskX,flaskTop+112,flaskX+flaskWidth/2,flaskTop+98);
+    ctx.lineTo(flaskX+flaskWidth/2,flaskTop+95);
+    ctx.lineTo(flaskX+12,flaskTop+35);
+    ctx.closePath();
+    ctx.clip();
+
+    if(progress<0.25){
+      // Dissolve: clear solution, no precipitate yet
+      ctx.fillStyle="rgba(255,255,255,0.06)";
+      ctx.fillRect(flaskX-flaskWidth/2,flaskTop+30,flaskWidth,90);
+    } else if(progress<0.45){
+      // Precipitate: cloudy white AgCl forming throughout
+      ctx.fillStyle="rgba(255,255,255,0.16)";
+      ctx.fillRect(flaskX-flaskWidth/2,flaskTop+30,flaskWidth,90);
+      const seed=42;
+      for(let i=0;i<26;i++){
+        const px=flaskX-40+((i*37+seed)%80);
+        const py=flaskTop+45+((i*53+seed)%70);
+        ctx.beginPath();ctx.arc(px,py,1.6,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,255,0.55)";ctx.fill();
+      }
+    } else if(progress<0.65){
+      // Filter: precipitate settled at bottom, clearer liquid above
+      ctx.fillStyle="rgba(255,255,255,0.05)";
+      ctx.fillRect(flaskX-flaskWidth/2,flaskTop+30,flaskWidth,60);
+      ctx.fillStyle="rgba(240,242,250,0.85)";
+      ctx.fillRect(flaskX-flaskWidth/2+6,flaskTop+90,flaskWidth-12,18);
+    } else if(progress<0.85){
+      // Wash: precipitate visible in a filter funnel shape, rinse liquid passing through
+      ctx.fillStyle="rgba(240,242,250,0.9)";
+      ctx.beginPath();ctx.ellipse(flaskX,flaskTop+95,30,8,0,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle="rgba(107,163,255,0.5)";ctx.lineWidth=1.5;
+      for(let i=0;i<3;i++){
+        ctx.beginPath();ctx.moveTo(flaskX-15+i*15,flaskTop+60);ctx.lineTo(flaskX-15+i*15,flaskTop+88);ctx.stroke();
+      }
+    } else {
+      // Dry / Calculate: solid white precipitate, fully settled, no liquid sheen
+      ctx.fillStyle="rgba(245,247,252,0.95)";
+      ctx.beginPath();ctx.ellipse(flaskX,flaskTop+96,32,9,0,0,Math.PI*2);ctx.fill();
+    }
+    ctx.restore();
+
+    // base shadow
+    ctx.fillStyle="rgba(0,0,0,0.3)";
+    ctx.beginPath();ctx.ellipse(flaskX,flaskTop+112,flaskWidth/2+8,5,0,0,Math.PI*2);ctx.fill();
+
+    // labels for context
+    ctx.fillStyle="rgba(255,255,255,0.4)";ctx.font="10px monospace";
+    if(progress>=0.85){
+      ctx.fillText("AgCl(s) — dry, constant mass",60,200);
+    } else if(progress>=0.25){
+      ctx.fillText("Ag⁺ + Cl⁻ → AgCl(s)",100,200);
+    } else {
+      ctx.fillText("Na⁺ and Cl⁻ dissolved",95,200);
+    }
+  }
+}
+
 
 // ── INTERACTIVE TOOLS ──
 function openTool(toolId){
