@@ -907,6 +907,71 @@ const LAB_DETAILS={
       {label:"Calculate",progress:1.0,desc:"Using the final AgCl mass and its molar mass, the moles of Cl⁻ originally present are calculated by stoichiometry (1:1 ratio), then converted back to a mass of chloride and divided by the original sample mass to get percent composition."},
     ],
   },
+  massSpec:{
+    title:"Mass Spectrometry",
+    subtitle:"Separating isotopes by mass-to-charge ratio",
+    anim:"massSpec",
+    stages:[
+      {label:"Vaporize",progress:0,desc:"The sample is first vaporized into a gas phase so individual atoms or molecules are free and isolated, ready to be ionized — solids and liquids must become gas before a mass spectrometer can analyze them."},
+      {label:"Ionize",progress:0.2,desc:"A high-energy electron beam knocks one or more electrons off each atom, leaving behind positively charged ions. Mass spectrometers always work with ions — neutral atoms aren't affected by the electric and magnetic fields used later."},
+      {label:"Accelerate",progress:0.4,desc:"The newly formed ions are accelerated through an electric field so that every ion — regardless of mass — ends up with the same kinetic energy, which is essential for a fair comparison in the next step."},
+      {label:"Deflect",progress:0.6,desc:"The ion beam passes through a magnetic field, which curves each ion's path. Lighter ions (smaller mass) deflect more sharply; heavier ions barely curve at all — same force, different mass, different curve."},
+      {label:"Detect",progress:0.8,desc:"Ions strike a detector plate at the position determined by how much they were deflected. Each landing spot corresponds to a specific mass-to-charge ratio, and the signal strength reveals how many ions of that mass arrived."},
+      {label:"Read spectrum",progress:1.0,desc:"The results form a mass spectrum: a graph of relative abundance vs. mass-to-charge ratio. Each peak is an isotope; the height tells you its natural abundance, and combining all peaks gives the average atomic mass."},
+    ],
+  },
+  kinetics:{
+    title:"Collision Theory",
+    subtitle:"Why heating a reaction speeds it up",
+    anim:"kinetics",
+    stages:[
+      {label:"Cold start",progress:0,desc:"At low temperature, particles move slowly. Collisions still happen, but most are gentle — well below the activation energy needed to break bonds — so almost none of them actually result in a reaction."},
+      {label:"Collisions occur",progress:0.2,desc:"Molecules move randomly and constantly bump into each other and the walls of the container. A collision alone isn't enough — for a reaction to happen, the collision needs both enough energy and the right orientation."},
+      {label:"Energy check",progress:0.4,desc:"Only collisions that meet or exceed the activation energy (Ea) can break the existing bonds in the reactants. Most everyday collisions fall short of this threshold and simply bounce apart unchanged."},
+      {label:"Orientation matters",progress:0.6,desc:"Even a high-energy collision fails if the molecules hit each other at the wrong angle. The reactive parts of each molecule need to actually meet for a new bond to form — energy alone isn't sufficient."},
+      {label:"Heat it up",progress:0.8,desc:"Raising the temperature increases the average kinetic energy of every particle. They move faster, collide more often, AND collide harder — so a much larger fraction of collisions now clears the activation energy bar."},
+      {label:"Faster rate",progress:1.0,desc:"With more successful collisions happening every second, products form faster. This is why reaction rate increases sharply — often roughly doubling — for every modest rise in temperature."},
+    ],
+  },
+  equilibrium:{
+    title:"Dynamic Equilibrium",
+    subtitle:"N₂O₄(g) ⇌ 2NO₂(g) — colorless to brown",
+    anim:"equilibrium",
+    stages:[
+      {label:"Pure reactant",progress:0,desc:"The flask starts with only colorless N₂O₄ gas. Since no NO₂ exists yet, the forward reaction (N₂O₄ → 2NO₂) runs fast while the reverse reaction can't happen at all — there's nothing to convert back."},
+      {label:"Forward dominates",progress:0.2,desc:"N₂O₄ begins breaking apart into brown NO₂. The forward rate is high because reactant concentration is high; the reverse rate is still low since only a little NO₂ has formed so far."},
+      {label:"Reverse speeds up",progress:0.4,desc:"As NO₂ accumulates, more reverse collisions become possible (2NO₂ → N₂O₄). The forward rate is slowing as N₂O₄ gets used up, while the reverse rate is climbing — the gap between the two rates is narrowing."},
+      {label:"Rates converge",progress:0.6,desc:"The forward and reverse rates keep approaching each other. The flask's color is now visibly brown and getting darker, reflecting more NO₂ relative to N₂O₄ — but the rates haven't fully matched yet."},
+      {label:"Equilibrium reached",progress:0.8,desc:"Forward rate now equals reverse rate exactly. From this point on, N₂O₄ converts to NO₂ at the same speed NO₂ converts back — concentrations stop changing, even though both reactions keep happening."},
+      {label:"Dynamic balance",progress:1.0,desc:"The flask holds a constant, stable brown color indefinitely. This looks static from the outside, but at the molecular level molecules are constantly converting in both directions — equilibrium is balance, not stillness."},
+    ],
+  },
+  titration:{
+    title:"Acid-Base Titration",
+    subtitle:"Finding an unknown concentration with a known one",
+    anim:"titration",
+    stages:[
+      {label:"Set up",progress:0,desc:"A measured volume of the acid (unknown concentration) sits in the flask with a few drops of indicator added. The burette above is filled with base of precisely known concentration — the titrant."},
+      {label:"Add titrant",progress:0.2,desc:"Base is released from the burette drop by drop into the flask while it's gently swirled or stirred. Early on, plenty of acid remains, so each drop barely changes the pH — the indicator stays unchanged."},
+      {label:"Approaching equivalence",progress:0.4,desc:"As more base is added, less unreacted acid remains. The solution's pH starts climbing faster with each additional drop — the steep part of the titration curve is coming up."},
+      {label:"Near equivalence point",progress:0.6,desc:"Right around here, moles of base added are about to equal moles of acid originally present — this exact stoichiometric match is called the equivalence point, distinct from what you'll actually observe next."},
+      {label:"Endpoint — color changes",progress:0.8,desc:"The indicator permanently changes color, marking the observed endpoint. This is the practical signal to stop titrating — ideally it happens at nearly the same volume as the true equivalence point."},
+      {label:"Calculate concentration",progress:1.0,desc:"Using the exact volume of titrant delivered and its known concentration, the moles of titrant used are calculated, then converted through the reaction's stoichiometry to find the original unknown concentration."},
+    ],
+  },
+  electrochem:{
+    title:"Galvanic Cell",
+    subtitle:"Zn/Cu cell — turning a spontaneous reaction into electricity",
+    anim:"electrochem",
+    stages:[
+      {label:"Set up half-cells",progress:0,desc:"A zinc strip sits in a Zn²⁺ solution; a copper strip sits in a separate Cu²⁺ solution. Right now the two half-cells are connected by nothing — no reaction is happening across them yet."},
+      {label:"Connect the circuit",progress:0.2,desc:"A wire connects the zinc and copper electrodes, and a salt bridge connects the two solutions. Both connections are required — without either one, the cell cannot generate current."},
+      {label:"Oxidation at the anode",progress:0.4,desc:"Zinc begins losing electrons: Zn(s) → Zn²⁺(aq) + 2e⁻. This is the anode. As this continues, the zinc strip itself slowly loses mass, dissolving into the surrounding solution."},
+      {label:"Electrons flow",progress:0.6,desc:"The electrons released at the zinc anode travel through the external wire toward the copper electrode. This flow of electrons through the wire is the electric current the cell produces."},
+      {label:"Reduction at the cathode",progress:0.8,desc:"At the copper electrode, Cu²⁺ ions arriving from solution gain those electrons: Cu²⁺(aq) + 2e⁻ → Cu(s). This is the cathode. Solid copper plates onto the electrode, so its mass increases over time."},
+      {label:"Salt bridge balances charge",progress:1.0,desc:"As Zn²⁺ builds up on one side and Cu²⁺ is consumed on the other, ions migrate through the salt bridge — anions toward the zinc side, cations toward the copper side — keeping both solutions electrically neutral so the reaction keeps running."},
+    ],
+  },
 };
 
 function openLabDetail(labId){
@@ -914,6 +979,8 @@ function openLabDetail(labId){
   if(!lab)return;
   showScreen("lab-detail-screen");
   document.getElementById("lab-detail-title").textContent=lab.title;
+  const stageCount=lab.stages.length;
+  const maxVal=stageCount-1;
 
   const body=document.getElementById("lab-detail-body");
   body.innerHTML=`
@@ -922,7 +989,7 @@ function openLabDetail(labId){
       <canvas id="lab-detail-canvas" width="700" height="440"></canvas>
     </div>
     <div class="lab-detail-stage-label" id="lab-detail-stage-label">${lab.stages[0].label}</div>
-    <input type="range" id="lab-detail-slider" min="0" max="${lab.stages.length-1}" step="1" value="0" class="titration-slider">
+    <input type="range" id="lab-detail-slider" min="0" max="${maxVal}" step="0.01" value="0" class="titration-slider">
     <div class="lab-detail-stage-pills" id="lab-detail-pills"></div>
     <div class="lab-detail-desc" id="lab-detail-desc">${lab.stages[0].desc}</div>
   `;
@@ -932,22 +999,37 @@ function openLabDetail(labId){
 
   const slider=document.getElementById("lab-detail-slider");
   const canvas=document.getElementById("lab-detail-canvas");
+  let currentIdx=-1;
 
-  function renderStage(idx){
-    const stage=lab.stages[idx];
-    document.getElementById("lab-detail-stage-label").textContent=stage.label;
-    document.getElementById("lab-detail-desc").textContent=stage.desc;
-    pillsEl.querySelectorAll(".lab-stage-pill").forEach((p,i)=>p.classList.toggle("active",i===idx));
-    slider.value=idx;
-    drawLabStage(canvas,lab.anim,stage.progress);
+  // While dragging: update everything live (visual, label, pills) based on
+  // the nearest stage, so feedback feels immediate. No continuous interpolation
+  // between stages — see design note — just smoother input than rigid stepping.
+  function liveDraw(rawVal){
+    const nearestIdx=Math.max(0,Math.min(maxVal,Math.round(rawVal)));
+    if(nearestIdx!==currentIdx){
+      currentIdx=nearestIdx;
+      const stage=lab.stages[nearestIdx];
+      document.getElementById("lab-detail-stage-label").textContent=stage.label;
+      document.getElementById("lab-detail-desc").textContent=stage.desc;
+      pillsEl.querySelectorAll(".lab-stage-pill").forEach((p,i)=>p.classList.toggle("active",i===nearestIdx));
+      drawLabStage(canvas,lab.anim,stage.progress);
+    }
   }
 
-  slider.addEventListener("input",()=>renderStage(parseInt(slider.value)));
+  // On release (or click): snap the slider handle itself to the stage position
+  function commitStage(idx){
+    idx=Math.max(0,Math.min(maxVal,idx));
+    slider.value=idx;
+    liveDraw(idx);
+  }
+
+  slider.addEventListener("input",()=>{liveDraw(parseFloat(slider.value));});
+  slider.addEventListener("change",()=>{commitStage(Math.round(parseFloat(slider.value)));});
   pillsEl.querySelectorAll(".lab-stage-pill").forEach(p=>{
-    p.addEventListener("click",()=>renderStage(parseInt(p.dataset.idx)));
+    p.addEventListener("click",()=>commitStage(parseInt(p.dataset.idx)));
   });
 
-  renderStage(0);
+  commitStage(0);
 }
 
 function closeLabDetail(){showScreen("browse-screen");openBrowseCategory("labs");}
@@ -956,7 +1038,7 @@ function closeLabDetail(){showScreen("browse-screen");openBrowseCategory("labs")
 // instead of a continuous loop — driven by the stage slider above.
 function drawLabStage(canvas,animType,progress){
   const dpr=window.devicePixelRatio||1;
-  const W=350,H=220;
+  const W=350,H=240;
   canvas.width=W*dpr;canvas.height=H*dpr;
   canvas.style.width="100%";canvas.style.height="auto";
   const ctx=canvas.getContext("2d");
@@ -964,96 +1046,450 @@ function drawLabStage(canvas,animType,progress){
   ctx.clearRect(0,0,W,H);
   ctx.fillStyle="#001218";ctx.fillRect(0,0,W,H);
 
-  function roundRect(x,y,w,h,r){
+  function drawFlask(x,top,width,height,liquidColor,liquidHeight,solidBand){
+    // outline
+    ctx.strokeStyle="rgba(210,222,245,0.75)";ctx.lineWidth=2;
     ctx.beginPath();
-    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-    ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-    ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
-  }
-
-  if(animType==="precipitation"){
-    // Stage thresholds match the 6-stage data: dissolve(0) precipitate(.25) filter(.45) wash(.65) dry(.85) calculate(1)
-    const flaskX=175, flaskTop=70, flaskWidth=110;
-
-    // beaker/flask outline (conical, Erlenmeyer style)
-    ctx.strokeStyle="rgba(200,215,240,0.6)";ctx.lineWidth=1.6;
-    ctx.beginPath();
-    ctx.moveTo(flaskX-12,flaskTop);
-    ctx.lineTo(flaskX-12,flaskTop+18);
-    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+95);
-    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+98);
-    ctx.quadraticCurveTo(flaskX,flaskTop+112,flaskX+flaskWidth/2,flaskTop+98);
-    ctx.lineTo(flaskX+flaskWidth/2,flaskTop+95);
-    ctx.lineTo(flaskX+12,flaskTop+18);
-    ctx.lineTo(flaskX+12,flaskTop);
+    ctx.moveTo(x-12,top);
+    ctx.lineTo(x-12,top+22);
+    ctx.lineTo(x-width/2,top+height-20);
+    ctx.lineTo(x-width/2,top+height-17);
+    ctx.quadraticCurveTo(x,top+height,x+width/2,top+height-17);
+    ctx.lineTo(x+width/2,top+height-20);
+    ctx.lineTo(x+12,top+22);
+    ctx.lineTo(x+12,top);
     ctx.stroke();
 
-    // glass shine
-    ctx.strokeStyle="rgba(255,255,255,0.12)";ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(flaskX-8,flaskTop+20);ctx.lineTo(flaskX-flaskWidth/2+10,flaskTop+88);ctx.stroke();
-
-    // liquid + precipitate inside (clipped to flask interior)
+    // liquid fill
     ctx.save();
     ctx.beginPath();
-    ctx.moveTo(flaskX-12,flaskTop+35);
-    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+95);
-    ctx.lineTo(flaskX-flaskWidth/2,flaskTop+98);
-    ctx.quadraticCurveTo(flaskX,flaskTop+112,flaskX+flaskWidth/2,flaskTop+98);
-    ctx.lineTo(flaskX+flaskWidth/2,flaskTop+95);
-    ctx.lineTo(flaskX+12,flaskTop+35);
+    ctx.moveTo(x-12,top+22);
+    ctx.lineTo(x-width/2,top+height-20);
+    ctx.lineTo(x-width/2,top+height-17);
+    ctx.quadraticCurveTo(x,top+height,x+width/2,top+height-17);
+    ctx.lineTo(x+width/2,top+height-20);
+    ctx.lineTo(x+12,top+22);
     ctx.closePath();
     ctx.clip();
-
-    if(progress<0.25){
-      // Dissolve: clear solution, no precipitate yet
-      ctx.fillStyle="rgba(255,255,255,0.06)";
-      ctx.fillRect(flaskX-flaskWidth/2,flaskTop+30,flaskWidth,90);
-    } else if(progress<0.45){
-      // Precipitate: cloudy white AgCl forming throughout
-      ctx.fillStyle="rgba(255,255,255,0.16)";
-      ctx.fillRect(flaskX-flaskWidth/2,flaskTop+30,flaskWidth,90);
-      const seed=42;
-      for(let i=0;i<26;i++){
-        const px=flaskX-40+((i*37+seed)%80);
-        const py=flaskTop+45+((i*53+seed)%70);
-        ctx.beginPath();ctx.arc(px,py,1.6,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,255,255,0.55)";ctx.fill();
-      }
-    } else if(progress<0.65){
-      // Filter: precipitate settled at bottom, clearer liquid above
-      ctx.fillStyle="rgba(255,255,255,0.05)";
-      ctx.fillRect(flaskX-flaskWidth/2,flaskTop+30,flaskWidth,60);
-      ctx.fillStyle="rgba(240,242,250,0.85)";
-      ctx.fillRect(flaskX-flaskWidth/2+6,flaskTop+90,flaskWidth-12,18);
-    } else if(progress<0.85){
-      // Wash: precipitate visible in a filter funnel shape, rinse liquid passing through
-      ctx.fillStyle="rgba(240,242,250,0.9)";
-      ctx.beginPath();ctx.ellipse(flaskX,flaskTop+95,30,8,0,0,Math.PI*2);ctx.fill();
-      ctx.strokeStyle="rgba(107,163,255,0.5)";ctx.lineWidth=1.5;
-      for(let i=0;i<3;i++){
-        ctx.beginPath();ctx.moveTo(flaskX-15+i*15,flaskTop+60);ctx.lineTo(flaskX-15+i*15,flaskTop+88);ctx.stroke();
-      }
-    } else {
-      // Dry / Calculate: solid white precipitate, fully settled, no liquid sheen
-      ctx.fillStyle="rgba(245,247,252,0.95)";
-      ctx.beginPath();ctx.ellipse(flaskX,flaskTop+96,32,9,0,0,Math.PI*2);ctx.fill();
+    if(liquidColor){
+      const fillTop=top+height-liquidHeight;
+      ctx.fillStyle=liquidColor;
+      ctx.fillRect(x-width/2,fillTop,width,liquidHeight+30);
+    }
+    if(solidBand){
+      ctx.fillStyle="rgba(248,250,255,0.97)";
+      ctx.fillRect(x-width/2,top+height-solidBand-18,width,solidBand);
     }
     ctx.restore();
 
     // base shadow
-    ctx.fillStyle="rgba(0,0,0,0.3)";
-    ctx.beginPath();ctx.ellipse(flaskX,flaskTop+112,flaskWidth/2+8,5,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle="rgba(0,0,0,0.35)";
+    ctx.beginPath();ctx.ellipse(x,top+height,width/2+8,5,0,0,Math.PI*2);ctx.fill();
+  }
 
-    // labels for context
-    ctx.fillStyle="rgba(255,255,255,0.4)";ctx.font="10px monospace";
-    if(progress>=0.85){
-      ctx.fillText("AgCl(s) — dry, constant mass",60,200);
-    } else if(progress>=0.25){
-      ctx.fillText("Ag⁺ + Cl⁻ → AgCl(s)",100,200);
-    } else {
-      ctx.fillText("Na⁺ and Cl⁻ dissolved",95,200);
+  if(animType==="precipitation"){
+    const flaskX=175, flaskTop=30, flaskW=120, flaskH=130;
+    let stageIdx;
+    if(progress<0.15)stageIdx=0;
+    else if(progress<0.35)stageIdx=1;
+    else if(progress<0.55)stageIdx=2;
+    else if(progress<0.75)stageIdx=3;
+    else if(progress<0.92)stageIdx=4;
+    else stageIdx=5;
+
+    const big="bold 13px monospace";
+    ctx.textAlign="center";
+
+    if(stageIdx===0){
+      // DISSOLVE — clear blue-tinted water, salt crystal dissolving with motion dots
+      drawFlask(flaskX,flaskTop,flaskW,flaskH,"rgba(80,160,255,0.18)",90,0);
+      ctx.fillStyle="rgba(80,160,255,0.7)";ctx.font=big;
+      ctx.fillText("Na⁺ + Cl⁻ (aq)",flaskX,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.45)";ctx.font="11px monospace";
+      ctx.fillText("clear, colorless solution",flaskX,flaskTop+flaskH+52);
     }
+    else if(stageIdx===1){
+      // PRECIPITATE — sudden cloudy white throughout, bold color shift
+      drawFlask(flaskX,flaskTop,flaskW,flaskH,"rgba(255,255,255,0.42)",90,0);
+      ctx.fillStyle="rgba(255,210,90,0.9)";ctx.font=big;
+      ctx.fillText("Ag⁺ + Cl⁻ → AgCl(s)",flaskX,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("solution turns cloudy white",flaskX,flaskTop+flaskH+52);
+    }
+    else if(stageIdx===2){
+      // FILTER — draw funnel + filter paper with precipitate caught, separate from flask below
+      const fx=flaskX, fTop=20;
+      ctx.strokeStyle="rgba(210,222,245,0.75)";ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.moveTo(fx-45,fTop);ctx.lineTo(fx+45,fTop);ctx.lineTo(fx+10,fTop+55);ctx.lineTo(fx-10,fTop+55);ctx.closePath();
+      ctx.stroke();
+      // precipitate caught in filter paper (bold white wedge)
+      ctx.fillStyle="rgba(248,250,255,0.95)";
+      ctx.beginPath();ctx.moveTo(fx-30,fTop+10);ctx.lineTo(fx+30,fTop+10);ctx.lineTo(fx+8,fTop+50);ctx.lineTo(fx-8,fTop+50);ctx.closePath();ctx.fill();
+      // stem
+      ctx.beginPath();ctx.moveTo(fx-4,fTop+55);ctx.lineTo(fx-4,fTop+75);ctx.lineTo(fx+4,fTop+75);ctx.lineTo(fx+4,fTop+55);ctx.stroke();
+      // filtrate dripping into a small flask below
+      drawFlask(fx,fTop+85,70,55,"rgba(80,160,255,0.15)",25,0);
+      ctx.fillStyle="rgba(255,210,90,0.9)";ctx.font=big;
+      ctx.fillText("AgCl caught on filter paper",flaskX,fTop+155);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("filtrate passes through below",flaskX,fTop+172);
+    }
+    else if(stageIdx===3){
+      // WASH — funnel with blue rinse liquid actively flowing over white solid
+      const fx=flaskX, fTop=20;
+      ctx.strokeStyle="rgba(210,222,245,0.75)";ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.moveTo(fx-45,fTop);ctx.lineTo(fx+45,fTop);ctx.lineTo(fx+10,fTop+55);ctx.lineTo(fx-10,fTop+55);ctx.closePath();
+      ctx.stroke();
+      ctx.fillStyle="rgba(248,250,255,0.95)";
+      ctx.beginPath();ctx.moveTo(fx-30,fTop+10);ctx.lineTo(fx+30,fTop+10);ctx.lineTo(fx+8,fTop+50);ctx.lineTo(fx-8,fTop+50);ctx.closePath();ctx.fill();
+      // streams of wash liquid (bright blue, clearly flowing)
+      ctx.strokeStyle="rgba(80,170,255,0.85)";ctx.lineWidth=2.5;
+      for(let i=0;i<3;i++){
+        ctx.beginPath();ctx.moveTo(fx-18+i*18,fTop-12);ctx.lineTo(fx-10+i*10,fTop+12);ctx.stroke();
+      }
+      ctx.beginPath();ctx.moveTo(fx-4,fTop+55);ctx.lineTo(fx-4,fTop+75);ctx.lineTo(fx+4,fTop+75);ctx.lineTo(fx+4,fTop+55);ctx.stroke();
+      drawFlask(fx,fTop+85,70,55,"rgba(80,160,255,0.3)",30,0);
+      ctx.fillStyle="rgba(80,170,255,0.9)";ctx.font=big;
+      ctx.fillText("rinsing away impurities",flaskX,fTop+155);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("dilute acid wash, not pure water",flaskX,fTop+172);
+    }
+    else if(stageIdx===4){
+      // DRY — crucible/watch glass on a hot plate, heat lines rising, solid turning fully opaque white
+      const cx=flaskX;
+      ctx.strokeStyle="rgba(210,222,245,0.75)";ctx.lineWidth=2;
+      ctx.beginPath();ctx.ellipse(cx,70,45,12,0,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle="rgba(248,250,255,0.97)";
+      ctx.beginPath();ctx.ellipse(cx,68,38,9,0,0,Math.PI*2);ctx.fill();
+      // hot plate base
+      ctx.fillStyle="rgba(255,120,80,0.5)";
+      ctx.fillRect(cx-50,95,100,12);
+      ctx.fillStyle="rgba(255,160,80,0.85)";ctx.font="10px monospace";
+      ctx.fillText("HEAT",cx,104);
+      // rising heat wavy lines
+      ctx.strokeStyle="rgba(255,150,90,0.6)";ctx.lineWidth=1.5;
+      for(let i=-1;i<=1;i++){
+        ctx.beginPath();
+        ctx.moveTo(cx+i*22,90);
+        ctx.quadraticCurveTo(cx+i*22+6,75,cx+i*22,60);
+        ctx.quadraticCurveTo(cx+i*22-6,45,cx+i*22,30);
+        ctx.stroke();
+      }
+      ctx.fillStyle="rgba(255,160,80,0.9)";ctx.font=big;
+      ctx.fillText("drying to constant mass",flaskX,150);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("weigh → reheat → reweigh, repeat",flaskX,168);
+    }
+    else {
+      // CALCULATE — final weighed solid on a balance/scale icon, large checkmark feel
+      const cx=flaskX;
+      ctx.fillStyle="rgba(248,250,255,0.97)";
+      ctx.beginPath();ctx.ellipse(cx,75,30,9,0,0,Math.PI*2);ctx.fill();
+      // balance/scale base
+      ctx.strokeStyle="rgba(210,222,245,0.75)";ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.moveTo(cx,85);ctx.lineTo(cx,115);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx-50,115);ctx.lineTo(cx+50,115);ctx.stroke();
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font="bold 16px monospace";
+      ctx.fillText("0.287 g AgCl",cx,140);
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;
+      ctx.fillText("mass → moles → % Cl⁻",flaskX,165);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("stoichiometry finishes the job",flaskX,183);
+    }
+  }
+
+  else if(animType==="massSpec"){
+    let stageIdx;
+    if(progress<0.1)stageIdx=0;
+    else if(progress<0.3)stageIdx=1;
+    else if(progress<0.5)stageIdx=2;
+    else if(progress<0.7)stageIdx=3;
+    else if(progress<0.9)stageIdx=4;
+    else stageIdx=5;
+
+    const cx=175, big="bold 13px monospace";
+    ctx.textAlign="center";
+
+    if(stageIdx===0){
+      ctx.fillStyle="rgba(180,200,230,0.5)";
+      ctx.fillRect(cx-15,150,30,20);
+      ctx.strokeStyle="rgba(255,150,90,0.6)";ctx.lineWidth=1.5;
+      for(let i=-1;i<=1;i++){
+        ctx.beginPath();ctx.moveTo(cx+i*14,148);ctx.quadraticCurveTo(cx+i*14+5,125,cx+i*14,105);ctx.stroke();
+      }
+      ctx.fillStyle="rgba(107,163,255,0.8)";ctx.font=big;
+      ctx.fillText("solid/liquid → gas",cx,190);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("must be gaseous to analyze",cx,208);
+    }
+    else if(stageIdx===1){
+      for(let i=0;i<4;i++){
+        const x=cx-45+i*30;
+        ctx.beginPath();ctx.arc(x,90,9,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,210,90,0.85)";ctx.fill();
+        ctx.fillStyle="rgba(20,20,20,0.9)";ctx.font="9px monospace";ctx.fillText("+",x,93);
+        ctx.beginPath();ctx.arc(x+16,72,2.5,0,Math.PI*2);ctx.fillStyle="rgba(120,214,255,0.9)";ctx.fill();
+      }
+      ctx.fillStyle="rgba(255,210,90,0.9)";ctx.font=big;
+      ctx.fillText("electron knocked away",cx,135);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("neutral atom → positive ion",cx,153);
+    }
+    else if(stageIdx===2){
+      for(let i=0;i<3;i++){
+        const y=70+i*20;
+        ctx.beginPath();ctx.arc(60,y,7,0,Math.PI*2);ctx.fillStyle="rgba(255,210,90,0.85)";ctx.fill();
+        ctx.strokeStyle="rgba(255,210,90,0.5)";ctx.lineWidth=2;
+        ctx.beginPath();ctx.moveTo(72,y);ctx.lineTo(110,y);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(98,y-4);ctx.lineTo(110,y);ctx.lineTo(98,y+4);ctx.stroke();
+      }
+      ctx.fillStyle="rgba(255,210,90,0.9)";ctx.font=big;
+      ctx.fillText("same kinetic energy for all",cx,140);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";
+      ctx.fillText("accelerated through electric field",cx,158);
+    }
+    else if(stageIdx===3){
+      ctx.strokeStyle="rgba(255,255,255,0.12)";ctx.setLineDash([3,3]);
+      ctx.strokeRect(cx-20,40,110,90);ctx.setLineDash([]);
+      ctx.fillStyle="rgba(255,255,255,0.4)";ctx.font="9px monospace";ctx.fillText("magnetic field",cx+35,36);
+      ctx.beginPath();ctx.strokeStyle="rgba(107,163,255,0.9)";ctx.lineWidth=2.5;
+      ctx.moveTo(cx-10,80);ctx.quadraticCurveTo(cx+40,40,cx+85,55);ctx.stroke();
+      ctx.beginPath();ctx.strokeStyle="rgba(255,90,90,0.9)";ctx.lineWidth=2.5;
+      ctx.moveTo(cx-10,110);ctx.quadraticCurveTo(cx+45,105,cx+85,98);ctx.stroke();
+      ctx.fillStyle="rgba(107,163,255,0.9)";ctx.font="10px monospace";ctx.fillText("light",cx+85,50);
+      ctx.fillStyle="rgba(255,90,90,0.9)";ctx.fillText("heavy",cx+85,113);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("less mass = sharper curve",cx,150);
+    }
+    else if(stageIdx===4){
+      ctx.fillStyle="rgba(255,255,255,0.15)";ctx.fillRect(cx+60,40,8,90);
+      ctx.beginPath();ctx.arc(cx+64,55,4,0,Math.PI*2);ctx.fillStyle="rgba(107,163,255,0.9)";ctx.fill();
+      ctx.beginPath();ctx.arc(cx+64,110,4,0,Math.PI*2);ctx.fillStyle="rgba(255,90,90,0.9)";ctx.fill();
+      ctx.strokeStyle="rgba(255,255,255,0.3)";ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(cx-30,55);ctx.lineTo(cx+60,55);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx-30,110);ctx.lineTo(cx+60,110);ctx.stroke();
+      ctx.fillStyle="rgba(255,255,255,0.4)";ctx.font="9px monospace";ctx.fillText("detector",cx+50,144);
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;ctx.fillText("landing spot = mass/charge",cx,165);
+    }
+    else {
+      const bx=cx-60;
+      ctx.strokeStyle="rgba(255,255,255,0.2)";ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(bx,150);ctx.lineTo(bx+130,150);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(bx,150);ctx.lineTo(bx,60);ctx.stroke();
+      const bars=[{x:0,h:30,label:"35"},{x:45,h:90,label:"37"},{x:90,h:12,label:"39"}];
+      bars.forEach(b=>{
+        ctx.fillStyle="rgba(120,214,160,0.8)";
+        ctx.fillRect(bx+b.x+10,150-b.h,26,b.h);
+        ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="9px monospace";
+        ctx.fillText(b.label,bx+b.x+23,164);
+      });
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;ctx.fillText("relative abundance vs. m/z",cx,185);
+    }
+  }
+
+  else if(animType==="kinetics"){
+    let stageIdx;
+    if(progress<0.1)stageIdx=0;
+    else if(progress<0.3)stageIdx=1;
+    else if(progress<0.5)stageIdx=2;
+    else if(progress<0.7)stageIdx=3;
+    else if(progress<0.9)stageIdx=4;
+    else stageIdx=5;
+
+    const cx=175, big="bold 13px monospace";
+    ctx.textAlign="center";
+    const seed=stageIdx*17;
+
+    function drawParticles(count,speed,color){
+      for(let i=0;i<count;i++){
+        const x=70+((i*53+seed*7)%180);
+        const y=50+((i*37+seed*5)%110);
+        ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);
+        ctx.fillStyle=color;ctx.fill();
+        if(speed>0){
+          ctx.strokeStyle=color;ctx.lineWidth=1;ctx.globalAlpha=0.4;
+          ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+speed*((i%2)?1:-1),y+speed*((i%3)?1:-1));ctx.stroke();
+          ctx.globalAlpha=1;
+        }
+      }
+    }
+
+    if(stageIdx===0){
+      drawParticles(10,3,"rgba(107,163,255,0.6)");
+      ctx.fillStyle="rgba(107,163,255,0.9)";ctx.font=big;ctx.fillText("low temperature",cx,185);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("slow particles, gentle collisions",cx,203);
+    }
+    else if(stageIdx===1){
+      drawParticles(12,5,"rgba(107,163,255,0.75)");
+      ctx.beginPath();ctx.arc(cx,100,6,0,Math.PI*2);ctx.fillStyle="rgba(255,255,255,0.3)";ctx.fill();
+      ctx.fillStyle="rgba(107,163,255,0.9)";ctx.font=big;ctx.fillText("particles collide constantly",cx,185);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("but not every collision reacts",cx,203);
+    }
+    else if(stageIdx===2){
+      drawParticles(10,5,"rgba(255,210,90,0.5)");
+      ctx.fillStyle="rgba(255,90,90,0.85)";ctx.font="10px monospace";
+      ctx.fillText("Ea threshold",cx,55);
+      ctx.strokeStyle="rgba(255,90,90,0.5)";ctx.setLineDash([3,3]);
+      ctx.beginPath();ctx.moveTo(70,62);ctx.lineTo(250,62);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle="rgba(255,210,90,0.9)";ctx.font=big;ctx.fillText("needs minimum energy (Eₐ)",cx,185);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("most collisions fall short",cx,203);
+    }
+    else if(stageIdx===3){
+      ctx.fillStyle="rgba(255,210,90,0.8)";
+      ctx.beginPath();ctx.arc(cx-20,100,9,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(cx+22,85,9,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle="rgba(255,90,90,0.85)";ctx.font="16px monospace";ctx.fillText("✗",cx,70);
+      ctx.fillStyle="rgba(255,210,90,0.9)";ctx.font=big;ctx.fillText("orientation must be right",cx,185);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("wrong angle = no reaction",cx,203);
+    }
+    else if(stageIdx===4){
+      drawParticles(16,9,"rgba(255,90,90,0.75)");
+      ctx.fillStyle="rgba(255,150,90,0.9)";ctx.font="10px monospace";ctx.fillText("HEAT",cx,55);
+      ctx.fillStyle="rgba(255,90,90,0.9)";ctx.font=big;ctx.fillText("particles move faster",cx,185);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("more frequent, harder hits",cx,203);
+    }
+    else {
+      ctx.fillStyle="rgba(120,214,160,0.8)";
+      for(let i=0;i<14;i++){
+        const x=70+((i*53+seed*7)%180);
+        const y=50+((i*37+seed*5)%110);
+        ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();
+      }
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font="16px monospace";ctx.fillText("✓ ✓ ✓",cx,75);
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;ctx.fillText("more successful collisions",cx,185);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("reaction rate increases",cx,203);
+    }
+  }
+
+  else if(animType==="equilibrium"){
+    let stageIdx;
+    if(progress<0.1)stageIdx=0;
+    else if(progress<0.3)stageIdx=1;
+    else if(progress<0.5)stageIdx=2;
+    else if(progress<0.7)stageIdx=3;
+    else if(progress<0.9)stageIdx=4;
+    else stageIdx=5;
+
+    const cx=175, flaskTop=30, flaskW=120, flaskH=130, big="bold 13px monospace";
+    ctx.textAlign="center";
+    const brownAmt=[0.02,0.12,0.28,0.42,0.55,0.55][stageIdx];
+    drawFlask(cx,flaskTop,flaskW,flaskH,`rgba(180,110,40,${brownAmt})`,95,0);
+
+    if(stageIdx===0){
+      ctx.fillStyle="rgba(200,220,250,0.85)";ctx.font=big;ctx.fillText("pure N₂O₄ (colorless)",cx,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("no reverse reaction yet",cx,flaskTop+flaskH+52);
+    } else if(stageIdx===1){
+      ctx.fillStyle="rgba(220,160,80,0.9)";ctx.font=big;ctx.fillText("N₂O₄ → 2NO₂ (forward fast)",cx,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("turning light brown",cx,flaskTop+flaskH+52);
+    } else if(stageIdx===2){
+      ctx.fillStyle="rgba(220,160,80,0.9)";ctx.font=big;ctx.fillText("reverse rate climbing",cx,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("2NO₂ → N₂O₄ picking up",cx,flaskTop+flaskH+52);
+    } else if(stageIdx===3){
+      ctx.fillStyle="rgba(220,160,80,0.9)";ctx.font=big;ctx.fillText("rates converging",cx,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("color deepening, not yet stable",cx,flaskTop+flaskH+52);
+    } else if(stageIdx===4){
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;ctx.fillText("forward rate = reverse rate",cx,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("equilibrium reached",cx,flaskTop+flaskH+52);
+    } else {
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;ctx.fillText("constant brown color",cx,flaskTop+flaskH+34);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("dynamic — still reacting both ways",cx,flaskTop+flaskH+52);
+    }
+  }
+
+  else if(animType==="titration"){
+    let stageIdx;
+    if(progress<0.1)stageIdx=0;
+    else if(progress<0.3)stageIdx=1;
+    else if(progress<0.5)stageIdx=2;
+    else if(progress<0.7)stageIdx=3;
+    else if(progress<0.9)stageIdx=4;
+    else stageIdx=5;
+
+    const cx=175, big="bold 13px monospace";
+    ctx.textAlign="center";
+
+    const bTop=14,bBottom=78;
+    ctx.strokeStyle="rgba(210,222,245,0.75)";ctx.lineWidth=1.6;
+    ctx.beginPath();ctx.moveTo(cx-10,bTop);ctx.lineTo(cx-10,bBottom);ctx.lineTo(cx+10,bBottom);ctx.lineTo(cx+10,bTop);ctx.stroke();
+    const fillFrac=[0.95,0.8,0.6,0.45,0.3,0.2][stageIdx];
+    ctx.fillStyle="rgba(80,160,255,0.5)";
+    ctx.fillRect(cx-9,bTop+(bBottom-bTop)*(1-fillFrac),18,(bBottom-bTop)*fillFrac);
+    ctx.beginPath();ctx.moveTo(cx-3,bBottom+10);ctx.lineTo(cx+3,bBottom+10);ctx.lineTo(cx,bBottom+16);ctx.closePath();
+    ctx.fillStyle="rgba(255,184,0,0.6)";ctx.fill();
+
+    const flaskColor=stageIdx>=4?"rgba(255,90,170,0.55)":"rgba(255,255,255,0.08)";
+    drawFlask(cx,100,90,75,flaskColor,40,0);
+
+    if(stageIdx===0){
+      ctx.fillStyle="rgba(200,220,250,0.85)";ctx.font=big;ctx.fillText("flask + indicator ready",cx,200);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("burette filled with titrant",cx,216);
+    } else if(stageIdx===1){
+      ctx.fillStyle="rgba(107,163,255,0.9)";ctx.font=big;ctx.fillText("titrant dripping in",cx,200);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("pH barely changing yet",cx,216);
+    } else if(stageIdx===2){
+      ctx.fillStyle="rgba(107,163,255,0.9)";ctx.font=big;ctx.fillText("pH rising faster now",cx,200);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("approaching equivalence",cx,216);
+    } else if(stageIdx===3){
+      ctx.fillStyle="rgba(255,210,90,0.9)";ctx.font=big;ctx.fillText("equivalence point near",cx,200);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("moles acid ≈ moles base",cx,216);
+    } else if(stageIdx===4){
+      ctx.fillStyle="rgba(255,90,170,0.95)";ctx.font=big;ctx.fillText("endpoint! indicator changes",cx,200);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("permanent color shift",cx,216);
+    } else {
+      ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;ctx.fillText("calculate concentration",cx,200);
+      ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("volume × molarity → moles",cx,216);
+    }
+  }
+
+  else if(animType==="electrochem"){
+    let stageIdx;
+    if(progress<0.1)stageIdx=0;
+    else if(progress<0.3)stageIdx=1;
+    else if(progress<0.5)stageIdx=2;
+    else if(progress<0.7)stageIdx=3;
+    else if(progress<0.9)stageIdx=4;
+    else stageIdx=5;
+
+    const big="bold 13px monospace";
+    ctx.textAlign="center";
+    const anodeShrink=[0,0,2,4,6,8][stageIdx];
+    const cathodeGrow=[0,0,1,3,5,8][stageIdx];
+
+    [[60,"Zn","rgba(0,180,216,0.6)",anodeShrink],[290,"Cu","rgba(255,184,0,0.6)",-cathodeGrow]].forEach(([cx,label,color,shrink])=>{
+      ctx.strokeStyle=color;ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(cx-30,40);ctx.lineTo(cx-30,140);ctx.lineTo(cx+30,140);ctx.lineTo(cx+30,40);ctx.stroke();
+      ctx.fillStyle=color.replace("0.6","0.1");ctx.fillRect(cx-29,90,58,49);
+      ctx.fillStyle=color;ctx.fillRect(cx-3+shrink/2,30,6-shrink,70);
+      ctx.font="11px monospace";ctx.fillText(label,cx-4,24);
+    });
+
+    ctx.strokeStyle="rgba(255,255,255,0.3)";ctx.lineWidth=8;
+    ctx.beginPath();ctx.moveTo(95,105);ctx.lineTo(255,105);ctx.stroke();
+
+    if(stageIdx>=1){
+      ctx.strokeStyle="rgba(255,255,255,0.4)";ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(60,30);ctx.lineTo(60,15);ctx.lineTo(290,15);ctx.lineTo(290,30);ctx.stroke();
+    }
+    if(stageIdx>=3){
+      const ePos=((stageIdx-3)*0.4)%1;
+      const ex=60+ePos*230;
+      ctx.beginPath();ctx.arc(ex,15,4,0,Math.PI*2);ctx.fillStyle="rgba(107,163,255,0.9)";ctx.fill();
+      ctx.fillStyle="rgba(107,163,255,0.8)";ctx.font="10px monospace";ctx.fillText("e⁻",ex,8);
+    }
+
+    const labels=[
+      ["set up half-cells","Zn²⁺ and Cu²⁺ solutions ready"],
+      ["wire + salt bridge connect","circuit is now complete"],
+      ["Zn oxidizes at anode","Zn → Zn²⁺ + 2e⁻"],
+      ["electrons flow through wire","anode → cathode"],
+      ["Cu²⁺ reduces at cathode","Cu²⁺ + 2e⁻ → Cu"],
+      ["salt bridge balances charge","anions→anode, cations→cathode"],
+    ];
+    ctx.fillStyle="rgba(255,255,255,0.4)";ctx.font="9px monospace";
+    ctx.fillText("anode (oxidation)",60,160);ctx.fillText("cathode (reduction)",290,160);
+    ctx.fillStyle="rgba(120,214,160,0.9)";ctx.font=big;ctx.fillText(labels[stageIdx][0],175,185);
+    ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText(labels[stageIdx][1],175,203);
   }
 }
 
