@@ -401,7 +401,7 @@
     <div class="home-hero">
       <span class="home-logo">⚗️</span>
       <div class="home-title">ChemCrunch</div>
-      <div class="home-sub">Cram less. Understand more. 🧪<br><span style="opacity:0.6;font-size:12px">Built by an AP Chem student, for AP Chem students</span></div>
+      <div class="home-sub" id="home-sub-line">Cram less. Understand more. 🧪<br><span style="opacity:0.6;font-size:12px">Built by an AP Chem student, for AP Chem students</span></div>
       <div class="home-stats">
         <div class="home-stat"><div class="home-stat-num">9</div><div class="home-stat-label">Units</div></div>
         <div class="home-stat"><div class="home-stat-num">400+</div><div class="home-stat-label">Questions</div></div>
@@ -611,7 +611,7 @@
           <div class="qb-counter" id="qb-counter">Q 1 / 10</div>
         </div>
         <div class="qb-prog-track"><div class="qb-prog-fill" id="qb-prog-fill" style="width:0%"></div></div>
-        <div class="qb-spinner" id="qb-spinner"><div class="spinner" style="margin:0 auto 10px"></div><p style="font-size:12px;color:var(--text2)">Loading question…</p></div>
+        <div class="qb-spinner" id="qb-spinner"><div class="spinner" style="margin:0 auto 10px"></div><p id="qb-spinner-text" style="font-size:12px;color:var(--text2)">Loading question…</p></div>
         <div id="qb-q-wrap"></div>
       </div>
       <div id="qb-results-view" style="display:none">
@@ -2562,7 +2562,7 @@ function checkAns(cardId,idx){
   const opts=document.getElementById("opts-"+cardId);
   const fb=document.getElementById("qfb-"+cardId);
   if(opts)opts.querySelectorAll(".quiz-opt").forEach((b,i)=>{b.classList.add("disabled");if(i===card.quiz.ans)b.classList.add("correct");else if(i===idx)b.classList.add("wrong");});
-  if(fb){fb.textContent=(correctCards.has(cardId)?'✓ Correct! ':'✗ Not quite — ')+card.quiz.explain;fb.className="quiz-feedback show "+(correctCards.has(cardId)?'correct-fb':'wrong-fb');}
+  if(fb){fb.textContent=(correctCards.has(cardId)?'✓ Correct! ':'✗ '+randomWrongLine())+card.quiz.explain;fb.className="quiz-feedback show "+(correctCards.has(cardId)?'correct-fb':'wrong-fb');}
 }
 
 // ── LIKE / SAVE / COMMENTS ──
@@ -2616,7 +2616,7 @@ function renderCommentList(cardId){
       return `<div class="comment-item" style="background:rgba(0,87,255,0.1);border-color:rgba(0,87,255,0.25)"><div class="comment-author" style="color:#6BA3FF">You asked</div><div class="comment-text">${c.text}</div></div>`;
     }
     if(c.role==="loading"){
-      return `<div class="comment-item" id="ai-loading-${c.id}"><div class="comment-author">🤖 AI</div><div class="comment-text" style="display:flex;align-items:center;gap:6px"><span class="spinner" style="width:12px;height:12px;border-width:2px"></span> Thinking…</div></div>`;
+      return `<div class="comment-item" id="ai-loading-${c.id}"><div class="comment-author">🤖 AI</div><div class="comment-text" style="display:flex;align-items:center;gap:6px"><span class="spinner" style="width:12px;height:12px;border-width:2px"></span> ${randomLoadingLine()}</div></div>`;
     }
     return `<div class="comment-item"><div class="comment-author">🤖 AI</div><div class="comment-text">${c.text}</div></div>`;
   }).join("");
@@ -3063,6 +3063,29 @@ function getFallbackCard(){
 }
 
 // Shared DOM append used by both the live and fallback paths.
+// Keep the feed's memory/DOM bounded during long sessions. Cards more than
+// PRUNE_BUFFER behind the current slide are removed from both the array and
+// the DOM, and currentSlide is shifted by exactly the amount removed so the
+// user's visual position never jumps. Swipe navigation only ever reads
+// slideCards.length and the live currentSlide integer (never a baked-in
+// DOM index), so this is safe — verified by inspecting animateSlide/attachListeners.
+const PRUNE_BUFFER = 25;
+function pruneOldCards(){
+  const excess = currentSlide - PRUNE_BUFFER;
+  if(excess<=0)return;
+  slideCards.splice(0,excess);
+  const track=document.getElementById("swipe-track");
+  for(let i=0;i<excess;i++){
+    if(track.firstElementChild)track.removeChild(track.firstElementChild);
+  }
+  currentSlide-=excess;
+  // Re-apply the transform immediately so the prune is visually seamless (no jump).
+  const slideHeight=document.getElementById("swipe-container").clientHeight;
+  track.style.transition="none";
+  track.style.transform=`translateY(-${currentSlide*slideHeight}px)`;
+  requestAnimationFrame(()=>{track.style.transition="";});
+}
+
 function appendCard(newCard){
   if(!newCard)return;
   slideCards.push(newCard);
@@ -3074,6 +3097,7 @@ function appendCard(newCard){
   newSlide.style.height=container.clientHeight+"px";
   track.appendChild(newSlide);
   attachListeners();
+  pruneOldCards();
 }
 
 function showBankToast(){
@@ -3114,7 +3138,7 @@ async function generateCard(silent=false){
     const fb=getFallbackCard();appendCard(fb);return;
   }
 
-  if(!silent){document.getElementById("gen-loader").classList.add("on");document.getElementById("gen-loader-text").textContent="Generating card…";}
+  if(!silent){document.getElementById("gen-loader").classList.add("on");document.getElementById("gen-loader-text").textContent=randomLoadingLine();}
   const types=["lesson","analogy","practice","challenge"];
   const type=types[Math.floor(Math.random()*types.length)];
   try{
@@ -3201,6 +3225,7 @@ async function loadNextQBQ(){
   document.getElementById("qb-counter").textContent=`Q ${qn} / ${total}`;
   document.getElementById("qb-prog-fill").style.width=qbSession.endless?"0%":Math.round(((qn-1)/qbSession.target)*100)+"%";
   document.getElementById("qb-spinner").classList.add("on");
+  document.getElementById("qb-spinner-text").textContent=randomLoadingLine();
   document.getElementById("qb-q-wrap").innerHTML="";
   const q=await getNextQuestion();
   qbSession.questions.push({...q,answered:false,chosen:-1});
@@ -3218,7 +3243,7 @@ function renderQBQ(){
       <span class="qb-diff ${diffCls}">${(q.difficulty||"medium")[0].toUpperCase()+(q.difficulty||"medium").slice(1)} · ${q.topicName||q.topic||""}</span>
       <div class="qb-question">${q.question}</div>
       <div class="qb-opts">${(q.opts||[]).map((o,i)=>{let c="qb-opt";if(done){c+=" disabled";if(i===q.ans)c+=" correct";else if(i===q.chosen)c+=" wrong";}return`<button class="${c}" onclick="qbAnswer(${i})">${String.fromCharCode(65+i)}) ${o}</button>`;}).join("")}</div>
-      <div class="qb-feedback ${done?(q.chosen===q.ans?'correct-fb':'wrong-fb'):''} ${done?'show':''}">${done?`${q.chosen===q.ans?'✓ Correct! ':'✗ Not quite — '}${q.explain}`:''}</div>
+      <div class="qb-feedback ${done?(q.chosen===q.ans?'correct-fb':'wrong-fb'):''} ${done?'show':''}">${done?`${q.chosen===q.ans?'✓ Correct! ':'✗ '+(q.wrongLine||'Not quite — ')}${q.explain}`:''}</div>
     </div>
     <button class="qb-next ${done?'show':''}" onclick="qbNext()">${atEnd?'See results →':'Next question →'}</button>`;
 }
@@ -3229,7 +3254,7 @@ function qbAnswer(idx){
   q.answered=true;q.chosen=idx;
   qbSession.current++;qbTotalAnswered++;
   if(idx===q.ans){qbSession.correct++;qbTotalCorrect++;}
-  else{qbSession.wrong++;const t=q.topicName||q.topic||"?";qbSession.topicWrong[t]=(qbSession.topicWrong[t]||0)+1;}
+  else{qbSession.wrong++;const t=q.topicName||q.topic||"?";qbSession.topicWrong[t]=(qbSession.topicWrong[t]||0)+1;q.wrongLine=randomWrongLine();}
   renderQBQ();
 }
 
@@ -3399,6 +3424,45 @@ const CHEM_JOKES=[
   "What's a chemist's favorite kind of tree? A chemis-tree.",
   "Chemists are slow to trust — they like to be ionically bonded first.",
 ];
+
+// ── PERSONALITY: rotating loading lines ──
+const CHEM_LOADING_LINES=[
+  "Balancing equations…",
+  "Negotiating with electrons…",
+  "Waiting for equilibrium…",
+  "Titrating to the endpoint…",
+  "Coaxing the reaction forward…",
+  "Checking significant figures…",
+  "Stirring gently…",
+  "Letting it precipitate…",
+];
+function randomLoadingLine(){
+  return CHEM_LOADING_LINES[Math.floor(Math.random()*CHEM_LOADING_LINES.length)];
+}
+
+// ── PERSONALITY: varied wrong-answer responses (rotate so it's never always the same line) ──
+const WRONG_ANSWER_LINES=[
+  "Not quite — ",
+  "So close — that's actually the conjugate base of correct. ",
+  "Wrong, but A for confidence. ",
+  "Close, but no precipitate. ",
+  "That's not it, but I respect the attempt. ",
+  "Nope — ",
+  "Not the one, but you're warming up. ",
+];
+function randomWrongLine(){
+  return WRONG_ANSWER_LINES[Math.floor(Math.random()*WRONG_ANSWER_LINES.length)];
+}
+
+// ── PERSONALITY: time-of-day flavor text for the home screen subtitle ──
+function getTimeFlavorLine(){
+  const hour=new Date().getHours();
+  if(hour>=0&&hour<5)return "Studying at this hour? Bold. Respect. 🌙";
+  if(hour>=5&&hour<8)return "Early start. The electrons are barely awake either. ☀️";
+  if(hour>=22)return "Still going? Don't forget to actually sleep tonight. 🌙";
+  return null; // no special flavor for normal daytime hours — keep default subtitle
+}
+
 let mascotJokeIdx=0;
 function rotateMascotJoke(){
   const el=document.getElementById("mascot-joke");
@@ -3412,8 +3476,16 @@ function rotateMascotJoke(){
 }
 setInterval(rotateMascotJoke,6000);
 
+function applyTimeFlavor(){
+  const line=getTimeFlavorLine();
+  if(!line)return; // normal daytime hours keep the default subtitle
+  const el=document.getElementById("home-sub-line");
+  if(el)el.innerHTML=`${line}<br><span style="opacity:0.6;font-size:12px">Built by an AP Chem student, for AP Chem students</span>`;
+}
+
 renderHome();
 initStreak();
+applyTimeFlavor();
 </script>
 </body>
 </html>
