@@ -1038,7 +1038,14 @@ function openLabDetail(labId){
       document.getElementById("lab-detail-desc").textContent=stage.desc;
       const pills=pillsEl.querySelectorAll(".lab-stage-pill");
       pills.forEach((p,i)=>p.classList.toggle("active",i===nearestIdx));
-      pills[nearestIdx]?.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+      const activePill=pills[nearestIdx];
+      if(activePill){
+        // Manually scroll only the pills row itself, rather than scrollIntoView,
+        // which in some browsers walks up and scrolls/shifts ancestor containers
+        // too (including the screen itself) when asked to center horizontally.
+        const targetLeft=activePill.offsetLeft-(pillsEl.clientWidth-activePill.offsetWidth)/2;
+        pillsEl.scrollTo({left:Math.max(0,targetLeft),behavior:"smooth"});
+      }
       drawLabStage(canvas,lab.anim,stage.progress);
     }
   }
