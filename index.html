@@ -61,11 +61,11 @@
     /* BROWSE ROW (Labs/Exceptions/Formulas + Interactive Tools) */
     .browse-row{display:block;flex-shrink:0;white-space:nowrap;overflow-x:auto;height:120px;padding:2px 16px 8px;-webkit-overflow-scrolling:touch}
     .browse-row::-webkit-scrollbar{display:none}
-    .browse-card{display:inline-block;white-space:normal;vertical-align:top;width:128px;height:96px;margin-right:10px;overflow:visible;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:14px 12px;cursor:pointer;transition:all 0.15s}
+    .browse-card{display:inline-block;white-space:normal;vertical-align:top;width:128px;height:118px;margin-right:10px;overflow:hidden;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:14px 12px;cursor:pointer;transition:all 0.15s}
     .browse-card:active{transform:scale(0.96);border-color:var(--blue)}
     .browse-card-icon{font-size:24px;margin-bottom:8px}
     .browse-card-title{font-size:12px;font-weight:700;color:var(--text1);margin-bottom:3px;line-height:1.3}
-    .browse-card-sub{font-size:10px;color:var(--text3);line-height:1.4}
+    .browse-card-sub{font-size:10px;color:var(--text3);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
     /* MISSION SECTION */
     .mission-section{flex-shrink:0;margin:28px 16px 18px;padding:22px 18px;background:linear-gradient(160deg,rgba(0,87,255,0.08),rgba(155,89,255,0.05));border:1px solid var(--border2);border-radius:var(--radius-xl)}
@@ -79,6 +79,19 @@
     /* FOOTER */
     .home-footer{flex-shrink:0;padding:18px 24px 36px;text-align:center}
     .home-footer-line{font-size:11px;color:var(--text3);line-height:1.7}
+
+    /* MASCOT: bubbling flask + rotating chem jokes */
+    .mascot-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin:8px 0 20px;flex-shrink:0}
+    .mascot-flask{position:relative;width:54px;height:60px;animation:mascot-wobble 3.2s ease-in-out infinite}
+    .mascot-flask svg{width:100%;height:100%;display:block}
+    .mascot-bubble{position:absolute;border-radius:50%;background:rgba(0,214,143,0.55);animation:mascot-rise 2.6s ease-in infinite}
+    .mascot-bubble:nth-child(1){width:5px;height:5px;left:20px;bottom:14px;animation-delay:0s}
+    .mascot-bubble:nth-child(2){width:4px;height:4px;left:28px;bottom:12px;animation-delay:0.8s}
+    .mascot-bubble:nth-child(3){width:3px;height:3px;left:24px;bottom:16px;animation-delay:1.6s}
+    @keyframes mascot-wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+    @keyframes mascot-rise{0%{transform:translateY(0) scale(1);opacity:0.9}80%{opacity:0.5}100%{transform:translateY(-26px) scale(0.4);opacity:0}}
+    .mascot-joke{font-size:11px;color:var(--text3);text-align:center;max-width:280px;min-height:30px;line-height:1.5;transition:opacity 0.4s ease;padding:0 16px}
+    .mascot-joke.fade{opacity:0}
 
     /* BROWSE DETAIL PAGES */
     .browse-intro{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:18px;padding:0 2px}
@@ -327,10 +340,10 @@
 
     /* QB SCREEN */
     #qb-screen{background:var(--bg);overflow-y:auto}
-    .qb-topbar{padding:calc(14px + env(safe-area-inset-top)) 16px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
+    .qb-topbar{flex-shrink:0;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
     .qb-back{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:none;color:var(--text1);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px}
     .qb-topbar-title{font-size:15px;font-weight:700;color:var(--text1)}
-    .qb-body{padding:14px}
+    .qb-body{padding:14px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
     .qb-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
     .qb-stat{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:11px;text-align:center}
     .qb-stat-num{font-size:20px;font-weight:800;color:var(--text1);letter-spacing:-0.5px}
@@ -391,9 +404,8 @@
       <div class="home-sub">Cram less. Understand more. 🧪<br><span style="opacity:0.6;font-size:12px">Built by an AP Chem student, for AP Chem students</span></div>
       <div class="home-stats">
         <div class="home-stat"><div class="home-stat-num">9</div><div class="home-stat-label">Units</div></div>
-        <div class="home-stat"><div class="home-stat-num">300+</div><div class="home-stat-label">Questions</div></div>
+        <div class="home-stat"><div class="home-stat-num">400+</div><div class="home-stat-label">Questions</div></div>
         <div class="home-stat"><div class="home-stat-num" id="streak-num">1</div><div class="home-stat-label">Day streak 🔥</div></div>
-        <div class="home-stat"><div class="home-stat-num" id="user-count-display">—</div><div class="home-stat-label">Students</div></div>
       </div>
     </div>
     <div class="review-card" onclick="openUnit('review','AP Exam Review','All Units · Full Prep')">
@@ -456,10 +468,23 @@
       <div class="mission-title">Why ChemCrunch exists</div>
       <div class="mission-text">AP Chem is one of the hardest classes most of us will ever take — dense, fast-moving, and easy to fall behind in. ChemCrunch turns the content into something you'll actually want to open: short, swipeable lessons that respect your time and your attention span, built the way we actually study.</div>
       <div class="mission-stats">
-        <div class="mission-stat"><div class="mission-stat-num" id="mission-student-count">—</div><div class="mission-stat-label">Students using ChemCrunch</div></div>
         <div class="mission-stat"><div class="mission-stat-num">9</div><div class="mission-stat-label">Full AP units covered</div></div>
-        <div class="mission-stat"><div class="mission-stat-num">300+</div><div class="mission-stat-label">Practice questions</div></div>
+        <div class="mission-stat"><div class="mission-stat-num">400+</div><div class="mission-stat-label">Practice questions</div></div>
       </div>
+    </div>
+
+    <div class="mascot-wrap">
+      <div class="mascot-flask">
+        <svg viewBox="0 0 54 60" fill="none">
+          <path d="M21 6 L21 22 L8 50 Q6 54 10 54 L44 54 Q48 54 46 50 L33 22 L33 6" stroke="rgba(210,222,245,0.8)" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M19 4 L35 4" stroke="rgba(210,222,245,0.8)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 48 Q10 51 12.5 51.5 L41.5 51.5 Q44 51 42 48 L33 28 L21 28 Z" fill="rgba(0,214,143,0.22)"/>
+        </svg>
+        <div class="mascot-bubble"></div>
+        <div class="mascot-bubble"></div>
+        <div class="mascot-bubble"></div>
+      </div>
+      <div class="mascot-joke" id="mascot-joke">Why can't you trust an atom? They make up everything.</div>
     </div>
 
     <div class="home-footer">
@@ -1038,13 +1063,33 @@ function closeLabDetail(){showScreen("browse-screen");openBrowseCategory("labs")
 // instead of a continuous loop — driven by the stage slider above.
 function drawLabStage(canvas,animType,progress){
   const dpr=window.devicePixelRatio||1;
-  const W=350,H=240;
+  const W=490,H=336;
   canvas.width=W*dpr;canvas.height=H*dpr;
   canvas.style.width="100%";canvas.style.height="auto";
   const ctx=canvas.getContext("2d");
   ctx.scale(dpr,dpr);
+  ctx.scale(1.4,1.4);
   ctx.clearRect(0,0,W,H);
-  ctx.fillStyle="#001218";ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="#001218";ctx.fillRect(0,0,350,240);
+
+  // Shared rounded-rectangle helper — used everywhere instead of ctx.fillRect/strokeRect
+  // so every lab gets the same soft, non-boxy edges consistently.
+  function roundRect(x,y,w,h,r){
+    if(typeof r==="number")r={tl:r,tr:r,br:r,bl:r};
+    ctx.beginPath();
+    ctx.moveTo(x+r.tl,y);
+    ctx.lineTo(x+w-r.tr,y);
+    ctx.quadraticCurveTo(x+w,y,x+w,y+r.tr);
+    ctx.lineTo(x+w,y+h-r.br);
+    ctx.quadraticCurveTo(x+w,y+h,x+w-r.br,y+h);
+    ctx.lineTo(x+r.bl,y+h);
+    ctx.quadraticCurveTo(x,y+h,x,y+h-r.bl);
+    ctx.lineTo(x,y+r.tl);
+    ctx.quadraticCurveTo(x,y,x+r.tl,y);
+    ctx.closePath();
+  }
+  function fillRoundRect(x,y,w,h,r){roundRect(x,y,w,h,r);ctx.fill();}
+  function strokeRoundRect(x,y,w,h,r){roundRect(x,y,w,h,r);ctx.stroke();}
 
   function drawFlask(x,top,width,height,liquidColor,liquidHeight,solidBand){
     // outline
@@ -1165,7 +1210,7 @@ function drawLabStage(canvas,animType,progress){
       ctx.beginPath();ctx.ellipse(cx,68,38,9,0,0,Math.PI*2);ctx.fill();
       // hot plate base
       ctx.fillStyle="rgba(255,120,80,0.5)";
-      ctx.fillRect(cx-50,95,100,12);
+      fillRoundRect(cx-50,95,100,12,6);
       ctx.fillStyle="rgba(255,160,80,0.85)";ctx.font="10px monospace";
       ctx.fillText("HEAT",cx,104);
       // rising heat wavy lines
@@ -1214,7 +1259,7 @@ function drawLabStage(canvas,animType,progress){
 
     if(stageIdx===0){
       ctx.fillStyle="rgba(180,200,230,0.5)";
-      ctx.fillRect(cx-15,150,30,20);
+      fillRoundRect(cx-15,150,30,20,5);
       ctx.strokeStyle="rgba(255,150,90,0.6)";ctx.lineWidth=1.5;
       for(let i=-1;i<=1;i++){
         ctx.beginPath();ctx.moveTo(cx+i*14,148);ctx.quadraticCurveTo(cx+i*14+5,125,cx+i*14,105);ctx.stroke();
@@ -1263,7 +1308,8 @@ function drawLabStage(canvas,animType,progress){
       ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="11px monospace";ctx.fillText("less mass = sharper curve",cx,150);
     }
     else if(stageIdx===4){
-      ctx.fillStyle="rgba(255,255,255,0.15)";ctx.fillRect(cx+60,40,8,90);
+      ctx.fillStyle="rgba(255,255,255,0.15)";
+      fillRoundRect(cx+60,40,8,90,4);
       ctx.beginPath();ctx.arc(cx+64,55,4,0,Math.PI*2);ctx.fillStyle="rgba(107,163,255,0.9)";ctx.fill();
       ctx.beginPath();ctx.arc(cx+64,110,4,0,Math.PI*2);ctx.fillStyle="rgba(255,90,90,0.9)";ctx.fill();
       ctx.strokeStyle="rgba(255,255,255,0.3)";ctx.lineWidth=1.5;
@@ -1280,7 +1326,7 @@ function drawLabStage(canvas,animType,progress){
       const bars=[{x:0,h:30,label:"35"},{x:45,h:90,label:"37"},{x:90,h:12,label:"39"}];
       bars.forEach(b=>{
         ctx.fillStyle="rgba(120,214,160,0.8)";
-        ctx.fillRect(bx+b.x+10,150-b.h,26,b.h);
+        fillRoundRect(bx+b.x+10,150-b.h,26,b.h,{tl:4,tr:4,br:0,bl:0});
         ctx.fillStyle="rgba(255,255,255,0.5)";ctx.font="9px monospace";
         ctx.fillText(b.label,bx+b.x+23,164);
       });
@@ -1411,10 +1457,10 @@ function drawLabStage(canvas,animType,progress){
 
     const bTop=14,bBottom=78;
     ctx.strokeStyle="rgba(210,222,245,0.75)";ctx.lineWidth=1.6;
-    ctx.beginPath();ctx.moveTo(cx-10,bTop);ctx.lineTo(cx-10,bBottom);ctx.lineTo(cx+10,bBottom);ctx.lineTo(cx+10,bTop);ctx.stroke();
+    strokeRoundRect(cx-10,bTop,20,bBottom-bTop,{tl:4,tr:4,br:1,bl:1});
     const fillFrac=[0.95,0.8,0.6,0.45,0.3,0.2][stageIdx];
     ctx.fillStyle="rgba(80,160,255,0.5)";
-    ctx.fillRect(cx-9,bTop+(bBottom-bTop)*(1-fillFrac),18,(bBottom-bTop)*fillFrac);
+    fillRoundRect(cx-9,bTop+(bBottom-bTop)*(1-fillFrac),18,(bBottom-bTop)*fillFrac,{tl:3,tr:3,br:1,bl:1});
     ctx.beginPath();ctx.moveTo(cx-3,bBottom+10);ctx.lineTo(cx+3,bBottom+10);ctx.lineTo(cx,bBottom+16);ctx.closePath();
     ctx.fillStyle="rgba(255,184,0,0.6)";ctx.fill();
 
@@ -1458,9 +1504,18 @@ function drawLabStage(canvas,animType,progress){
 
     [[60,"Zn","rgba(0,180,216,0.6)",anodeShrink],[290,"Cu","rgba(255,184,0,0.6)",-cathodeGrow]].forEach(([cx,label,color,shrink])=>{
       ctx.strokeStyle=color;ctx.lineWidth=1.5;
-      ctx.beginPath();ctx.moveTo(cx-30,40);ctx.lineTo(cx-30,140);ctx.lineTo(cx+30,140);ctx.lineTo(cx+30,40);ctx.stroke();
-      ctx.fillStyle=color.replace("0.6","0.1");ctx.fillRect(cx-29,90,58,49);
-      ctx.fillStyle=color;ctx.fillRect(cx-3+shrink/2,30,6-shrink,70);
+      ctx.beginPath();
+      ctx.moveTo(cx-30,40);
+      ctx.lineTo(cx-30,128);
+      ctx.quadraticCurveTo(cx-30,140,cx-18,140);
+      ctx.lineTo(cx+18,140);
+      ctx.quadraticCurveTo(cx+30,140,cx+30,128);
+      ctx.lineTo(cx+30,40);
+      ctx.stroke();
+      ctx.fillStyle=color.replace("0.6","0.1");
+      fillRoundRect(cx-29,90,58,49,{tl:0,tr:0,br:10,bl:10});
+      ctx.fillStyle=color;
+      fillRoundRect(cx-3+shrink/2,30,6-shrink,70,2);
       ctx.font="11px monospace";ctx.fillText(label,cx-4,24);
     });
 
@@ -3304,36 +3359,6 @@ function getDeviceId(){
   return id;
 }
 
-async function trackUser(){
-  const deviceId = getDeviceId();
-  const alreadyCounted = localStorage.getItem("chemcrunch_counted") === deviceId;
-  try{
-    if(!alreadyCounted){
-      // First time this device has opened the app — increment the shared counter
-      const res = await fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"visit",deviceId})});
-      const data = await res.json();
-      if(data.count!==null && data.count!==undefined){
-        localStorage.setItem("chemcrunch_counted", deviceId);
-        updateUserCountDisplay(data.count);
-      }
-    } else {
-      // Already counted — just fetch the current total to display
-      const res = await fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"get"})});
-      const data = await res.json();
-      if(data.count!==null && data.count!==undefined) updateUserCountDisplay(data.count);
-    }
-  }catch(e){
-    // Fail silently — counter is a nice-to-have, never block the app
-  }
-}
-
-function updateUserCountDisplay(count){
-  const el = document.getElementById("user-count-display");
-  if(el) el.textContent = count.toLocaleString();
-  const missionEl = document.getElementById("mission-student-count");
-  if(missionEl) missionEl.textContent = count.toLocaleString()+"+";
-}
-
 // ── ASK AI DAILY QUOTA (10 questions per user per day) ──
 const ASK_AI_DAILY_LIMIT = 10;
 
@@ -3356,9 +3381,39 @@ function getAskAiRemaining(){
   return Math.max(0, ASK_AI_DAILY_LIMIT - usage.count);
 }
 
+// ── MASCOT: rotating chemistry jokes ──
+const CHEM_JOKES=[
+  "Why can't you trust an atom? They make up everything.",
+  "I was going to tell a sodium joke, but Na.",
+  "What did the scientist say when he found 2 isotopes of helium? HeHe.",
+  "Entropy isn't what it used to be.",
+  "A neutron walks into a bar and asks how much for a drink. The bartender says, \"For you? No charge.\"",
+  "Never trust an atom — they make up literally everything, and they're always bonding.",
+  "What do you call an acid that's amused? A-mused-ic. Wait — Funny acid? Just call it 'a-mused'.",
+  "I have a joke about chemistry, but I don't think it'll get a reaction.",
+  "Why is it hard to discuss chemistry puns? All the good ones Argon.",
+  "Two atoms are walking down the street. One says \"I lost an electron!\" The other says \"Are you sure?\" The first replies \"I'm positive.\"",
+  "Why did the acid go to the gym? To get buff-ered.",
+  "If you're not part of the solution, you're part of the precipitate.",
+  "A photon checks into a hotel and is asked if he needs help with his luggage. He says, \"No thanks, I'm traveling light.\"",
+  "What's a chemist's favorite kind of tree? A chemis-tree.",
+  "Chemists are slow to trust — they like to be ionically bonded first.",
+];
+let mascotJokeIdx=0;
+function rotateMascotJoke(){
+  const el=document.getElementById("mascot-joke");
+  if(!el)return;
+  el.classList.add("fade");
+  setTimeout(()=>{
+    mascotJokeIdx=(mascotJokeIdx+1)%CHEM_JOKES.length;
+    el.textContent=CHEM_JOKES[mascotJokeIdx];
+    el.classList.remove("fade");
+  },400);
+}
+setInterval(rotateMascotJoke,6000);
+
 renderHome();
 initStreak();
-trackUser();
 </script>
 </body>
 </html>
